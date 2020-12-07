@@ -1,10 +1,10 @@
 import React from "react";
-// import "bootstrap/dist/css/bootstrap.min.css";
-import Routers from "./Components/Routers/index";
+import Routes from "./routes";
+
 function App() {
   return (
     <div>
-      <Routers/>
+      <Routes/>
     </div>
   );
 }

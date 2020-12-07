@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input, FormText, Container } from 'reactstrap';
 
-const Login = (props) => {
+const FromLogin = (props) => {
   return (
     <Container>
       <Form>
@@ -20,4 +20,4 @@ const Login = (props) => {
   );
 }
 
-export default Login;
+export default FromLogin;
