@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
-// import PrivateRoute from "./PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 // import NotFound from "./NotFound";
 import { HomePage, LoginPage } from "../containers";
@@ -13,8 +13,8 @@ export default function Routers() {
   return (
     <Router>
       <Switch>
-        <PublicRoute path="/" exact component={HomePage} layout={MainLayout} />
-        <PublicRoute path="/login" exact component={LoginPage} layout={MainLayout} />
+        <PrivateRoute path="/" exact component={HomePage} layout={MainLayout} />
+        <PublicRoute path="/login" exact component={LoginPage} />
       </Switch>
     </Router>
   );

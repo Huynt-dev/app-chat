@@ -6,8 +6,10 @@ export const Khoixauxi = styled(Col)`
     display:flex;
     flex-direction:column;
     justify-content:flex-end;
-    border:1px solid rgba(0,0,0,.125);
+
     padding:10px 0;
+    box-sizing:border-box;
+    margin-right:10px;
 }
 `;
 
@@ -40,6 +42,15 @@ export const Wrapper = styled.div`
     `}
 `;
 
+export const InputChat = styled.input`
+    border-radius:10px;
+    border:${({theme})=>theme.colors.bdefault};
+    background-color:${({theme})=>theme.colors.default};
+    outline:none;
+    padding: 10px;
+    margin: 0 10px;
+    box-sizing:border-box;
+`
 
 
 export const Text = styled.p`

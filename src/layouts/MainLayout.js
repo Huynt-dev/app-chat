@@ -1,14 +1,14 @@
 import React from 'react'
+import {Menu} from "../components"
+import {Wrapper} from "./style"
 
 const MainLayout = ({ children }) => {
     return (
-        <div>
-            <div>Header</div>
+        <Wrapper fluid={true}>
+            <Menu />
 
             <div>{children}</div>
-
-            <div>Footer</div>
-        </div>
+        </Wrapper>
     )
 }
 

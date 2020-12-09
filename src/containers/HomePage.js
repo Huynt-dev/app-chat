@@ -4,12 +4,11 @@ import { ContentLeft, ContentRight } from '../components';
 
 const HomePage = () => {
     return (
-        <Container>
+        
             <Row>
                 <ContentLeft />
                 <ContentRight />
             </Row>
-        </Container>
         
     )
 };

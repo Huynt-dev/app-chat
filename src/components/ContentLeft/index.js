@@ -1,51 +1,62 @@
 import React from "react";
-import { Col, ListGroup, ListGroupItem } from 'reactstrap';
-import { Huydeptrai,Scroll } from "./style";
+import { Col, ListGroup } from 'reactstrap';
+import { Huydeptrai,Scroll, LGItem, Title, SubTitle } from "./style";
 
 export default function ContentLeft(){
     return(
-    <Col md={4}>
+    <Col md={3}>
      <ListGroup>
-        <ListGroupItem><Huydeptrai placeholder="Search..."/></ListGroupItem>
+        <Huydeptrai placeholder="Search..."/>
         <Scroll data-spy="scroll">
-            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-            <ListGroupItem>Morbi leo risus</ListGroupItem>
-            <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-            <ListGroupItem>Vestibulum at eros</ListGroupItem>
-            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-            <ListGroupItem>Morbi leo risus</ListGroupItem>
-            <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-            <ListGroupItem>Vestibulum at eros</ListGroupItem>
-            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-            <ListGroupItem>Morbi leo risus</ListGroupItem>
-            <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-            <ListGroupItem>Vestibulum at eros</ListGroupItem>
-            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-            <ListGroupItem>Morbi leo risus</ListGroupItem>
-            <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-            <ListGroupItem>Vestibulum at eros</ListGroupItem>
-            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-            <ListGroupItem>Morbi leo risus</ListGroupItem>
-            <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-            <ListGroupItem>Morbi leo risus</ListGroupItem>
-            <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-            <ListGroupItem>Vestibulum at eros</ListGroupItem>
-            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-            <ListGroupItem>Morbi leo risus</ListGroupItem>
-            <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-            <ListGroupItem>Vestibulum at eros</ListGroupItem>
-            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-            <ListGroupItem>Morbi leo risus</ListGroupItem>
-            <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-            <ListGroupItem>Vestibulum at eros</ListGroupItem>
-            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-            <ListGroupItem>Morbi leo risus</ListGroupItem>
-            <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
-            <ListGroupItem>Vestibulum at eros</ListGroupItem>
-            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-            <ListGroupItem>Morbi leo risus</ListGroupItem>
-            <ListGroupItem>Porta ac consectetur ac</ListGroupItem>
+            <LGItem active action>
+              <Title>Dapibus ac facilisis in</Title>
+              <SubTitle>Dapibus ac facilisiddddddddddddddddddddddddddddddds in</SubTitle>
+            </LGItem>
+            <LGItem action>
+              <Title>Dapibus ac facilisis in</Title>
+              <SubTitle>Dapibus ac facilisiddddddddddddddddddddddddddddddds in</SubTitle>
+            </LGItem>
+            <LGItem  action>
+              <Title>Dapibus ac facilisis in</Title>
+              <SubTitle>Dapibus ac facilisiddddddddddddddddddddddddddddddds in</SubTitle>
+            </LGItem>
+            <LGItem  action>
+              <Title>Dapibus ac facilisis in</Title>
+              <SubTitle>Dapibus ac facilisiddddddddddddddddddddddddddddddds in</SubTitle>
+            </LGItem>
+            <LGItem  action>
+              <Title>Dapibus ac facilisis in</Title>
+              <SubTitle>Dapibus ac facilisiddddddddddddddddddddddddddddddds in</SubTitle>
+            </LGItem>
+            <LGItem  action>
+              <Title>Dapibus ac facilisis in</Title>
+              <SubTitle>Dapibus ac facilisiddddddddddddddddddddddddddddddds in</SubTitle>
+            </LGItem>
+            <LGItem  action>
+              <Title>Dapibus ac facilisis in</Title>
+              <SubTitle>Dapibus ac facilisiddddddddddddddddddddddddddddddds in</SubTitle>
+            </LGItem>
+            
+            <LGItem  action>
+              <Title>Dapibus ac facilisis in</Title>
+              <SubTitle>Dapibus ac facilisiddddddddddddddddddddddddddddddds in</SubTitle>
+            </LGItem>
+            <LGItem  action>
+              <Title>Dapibus ac facilisis in</Title>
+              <SubTitle>Dapibus ac facilisiddddddddddddddddddddddddddddddds in</SubTitle>
+            </LGItem>
+            <LGItem  action>
+              <Title>Dapibus ac facilisis in</Title>
+              <SubTitle>Dapibus ac facilisiddddddddddddddddddddddddddddddds in</SubTitle>
+            </LGItem>
+            <LGItem  action>
+              <Title>Dapibus ac facilisis in</Title>
+              <SubTitle>Dapibus ac facilisiddddddddddddddddddddddddddddddds in</SubTitle>
+            </LGItem>
+            <LGItem  action>
+              <Title>Dapibus ac facilisis in</Title>
+              <SubTitle>Dapibus ac facilisiddddddddddddddddddddddddddddddds in</SubTitle>
+            </LGItem>
         </Scroll>
       </ListGroup>
     </Col>

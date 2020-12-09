@@ -1,6 +1,7 @@
 import React from "react";
+import {Col} from "reactstrap";
 
-import {Wrapper, Khoixauxi, Chat, Text, Time} from './style';
+import {Wrapper, Khoixauxi, Chat, Text, Time, InputChat} from './style';
 
 export default function ContentRight(){
     return(
@@ -25,7 +26,8 @@ export default function ContentRight(){
                         <Time>10:20</Time>
                     </Chat>
                 </Wrapper>
-
+                <InputChat placeholder="Gửi tin nhắn tới..."/>
+                
             </Khoixauxi>
     )
 }
