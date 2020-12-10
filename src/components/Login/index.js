@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, FormGroup, Label, Input } from 'reactstrap';
-import {Wrapper ,FormStyled} from './style';
+import {Wrapper ,FormStyled,Register} from './style';
 
 const FromLogin = (props) => {
 
@@ -16,7 +16,7 @@ const FromLogin = (props) => {
           <Label for="examplePassword">Password</Label>
           <Input type="password" name="password" id="examplePassword" placeholder="password" />
         </FormGroup>
-        <p><a href="/">Quên mật khẩu?</a> <a href="/">Đăng ký tài khoản</a></p>
+        <Register><a href="/">Quên mật khẩu?</a> <a href="/">Đăng ký tài khoản</a></Register>
         <Button>Login</Button>
         <Button className="ml-2">Register</Button>
       </FormStyled>

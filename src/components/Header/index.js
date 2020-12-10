@@ -1,12 +1,10 @@
 
 import React from 'react';
-import {Menubar} from "./style";
+import {Menubar, Menulogo , Menutext} from "./style";
 import {
   Collapse,
-  NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
   NavbarText
 } from 'reactstrap';
 
@@ -16,15 +14,15 @@ const Menu = (props) => {
 
   return (
       <Menubar expand="md">
-        <NavbarBrand href="/">App Chat</NavbarBrand>
+        <Menulogo href="/">App Chat</Menulogo>
  
         <Collapse  navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <NavLink href="/">Components</NavLink>
+              <Menutext href="/">Components</Menutext>
             </NavItem>
             <NavItem>
-              <NavLink href="/">GitHub</NavLink>
+              <Menutext href="/">GitHub</Menutext>
             </NavItem>
           </Nav>
           <NavbarText>Simple Text</NavbarText>

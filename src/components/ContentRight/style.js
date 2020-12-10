@@ -6,12 +6,37 @@ export const Khoixauxi = styled(Col)`
     display:flex;
     flex-direction:column;
     justify-content:flex-end;
-
-    padding:10px 0;
+    background-color: ${({theme})=>theme.colors.default};
+    padding:10px0;
     box-sizing:border-box;
-    margin-right:10px;
+    margin-right:15px;
 }
 `;
+
+export const Wrapper = styled.div`
+    height: calc(100vh - (66px + 76px) );
+    overflow: auto;
+
+     /* width */
+     ::-webkit-scrollbar {
+    width: 6px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background-color:${({theme})=>theme.colors.default};
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    }
+`
 
 export const Chat = styled.div`
     background-color: rgb(3, 139, 225);
@@ -26,7 +51,7 @@ export const Chat = styled.div`
     box-sizing:border-box;
 `;
 
-export const Wrapper = styled.div`
+export const Box = styled.div`
     display:flex;
     justify-content:flex-end;
     padding:0 10px;
@@ -50,6 +75,7 @@ export const InputChat = styled.input`
     padding: 10px;
     margin: 0 10px;
     box-sizing:border-box;
+    color:white;
 `
 
 
