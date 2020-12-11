@@ -1,10 +1,8 @@
 import styled, { css } from "styled-components";
-import { Layout } from "antd";
+import { Layout, Input } from "antd";
+const { Header, Content } = Layout;
 
-export const LayoutChat = styled(Layout)`
-  padding: 10px;
-  box-sizing: border-box;
-`;
+export const LayoutChat = styled(Layout)``;
 
 export const Box = styled.div`
   min-width: 400px;
@@ -15,6 +13,15 @@ export const Box = styled.div`
   box-sizing: border-box;
   border-radius: 20px;
   color: white;
+`;
+
+export const HeaderPage = styled(Header)`
+  color: white;
+`;
+
+export const Contents = styled(Content)`
+  padding: 10px;
+  box-sizing: border-box;
 `;
 
 export const Chat = styled.div`
@@ -42,4 +49,9 @@ export const Time = styled.p`
   box-sizing: border-box;
   display: flex;
   justify-content: flex-end;
+`;
+
+export const InputChat = styled(Input)`
+  padding: 10px;
+  box-sizing: border-box;
 `;

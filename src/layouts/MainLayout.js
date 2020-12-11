@@ -1,11 +1,13 @@
 import React from "react";
-import { Wrapper } from "./style";
-
+import { LayoutChat } from "./style";
+import { Layout } from "antd";
+import { MenuSider } from "../components";
 const MainLayout = ({ children }) => {
   return (
-    <Wrapper fluid={true}>
-      <div>{children}</div>
-    </Wrapper>
+    <Layout style={{ minHeight: "100vh" }}>
+      <MenuSider />
+      <LayoutChat>{children}</LayoutChat>
+    </Layout>
   );
 };
 
