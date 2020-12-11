@@ -1,14 +1,70 @@
-import React from 'react';
-import { Row } from 'reactstrap';
-import { ContentLeft, ContentRight } from '../components';
+import React from "react";
+import { LayoutChat, Chat, Time, Text, Box } from "./style";
+import { Layout, Menu, Input } from "antd";
+import {
+  DesktopOutlined,
+  PieChartOutlined,
+  FileOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+
+const { Sider, Content } = Layout;
+const { SubMenu } = Menu;
 
 const HomePage = () => {
-    return (
-            <Row>
-                <ContentLeft />
-                <ContentRight />
-            </Row>
-    )
+  return (
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider collapsible>
+        <div className="logo" />
+        <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+          <Menu.Item key="1" icon={<PieChartOutlined />}>
+            Option 1
+          </Menu.Item>
+          <Menu.Item key="2" icon={<DesktopOutlined />}>
+            Option 2
+          </Menu.Item>
+          <SubMenu key="sub1" icon={<UserOutlined />} title="User">
+            <Menu.Item key="3">Tom</Menu.Item>
+            <Menu.Item key="4">Bill</Menu.Item>
+            <Menu.Item key="5">Alex</Menu.Item>
+          </SubMenu>
+          <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
+            <Menu.Item key="6">Team 1</Menu.Item>
+            <Menu.Item key="8">Team 2</Menu.Item>
+          </SubMenu>
+          <Menu.Item key="9" icon={<FileOutlined />}>
+            Files
+          </Menu.Item>
+        </Menu>
+      </Sider>
+      <LayoutChat>
+        <Content>
+          <Chat>
+            <Box>
+              <Text>asdasdasdasdas</Text>
+              <Time>10:10</Time>
+            </Box>
+          </Chat>
+
+          <Chat friend>
+            <Box>
+              <Text>asdasdasdasdas</Text>
+              <Time>10:10</Time>
+            </Box>
+          </Chat>
+
+          <Chat>
+            <Box>
+              <Text>asdasdasdasdas</Text>
+              <Time>10:10</Time>
+            </Box>
+          </Chat>
+        </Content>
+        <Input placeholder="Say some thing" />
+      </LayoutChat>
+    </Layout>
+  );
 };
 
 export default HomePage;

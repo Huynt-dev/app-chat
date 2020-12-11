@@ -1,15 +1,12 @@
-import React from 'react'
-import {Menu} from "../components"
-import {Wrapper} from "./style"
+import React from "react";
+import { Wrapper } from "./style";
 
 const MainLayout = ({ children }) => {
-    return (
-        <Wrapper fluid={true}>
-            <Menu />
+  return (
+    <Wrapper fluid={true}>
+      <div>{children}</div>
+    </Wrapper>
+  );
+};
 
-            <div>{children}</div>
-        </Wrapper>
-    )
-}
-
-export default MainLayout
+export default MainLayout;
