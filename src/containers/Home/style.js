@@ -2,10 +2,15 @@ import styled, { css } from "styled-components";
 import { Layout, Input } from "antd";
 const { Header, Content } = Layout;
 
-export const LayoutChat = styled(Layout)``;
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 30px;
+  box-sizing: border-box;
+`;
 
 export const Box = styled.div`
-  min-width: 400px;
   max-width: 450px;
   background-color: ${({ theme }) => theme.colors.nav};
   padding: 10px;
@@ -17,11 +22,16 @@ export const Box = styled.div`
 
 export const HeaderPage = styled(Header)`
   color: white;
+  h1 {
+    color: white;
+  }
 `;
 
 export const Contents = styled(Content)`
   padding: 10px;
   box-sizing: border-box;
+  height: calc(100vh - 144px);
+  overflow-y: scroll;
 `;
 
 export const Chat = styled.div`
@@ -51,7 +61,13 @@ export const Time = styled.p`
   justify-content: flex-end;
 `;
 
-export const InputChat = styled(Input)`
+export const Wrapper2 = styled.div`
   padding: 10px;
   box-sizing: border-box;
+`;
+
+export const InputChat = styled(Input)`
+  padding: 25px 10px;
+  box-sizing: border-box;
+  height: 60px;
 `;
