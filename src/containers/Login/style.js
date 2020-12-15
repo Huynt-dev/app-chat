@@ -6,7 +6,7 @@ export const FromA = styled(Form)`
   max-width: 600px;
 
   padding: 20px 20px 1px 20px;
-  background-color: whitesmoke;
+  background-color: ${({ theme }) => theme.colors.nav};
   box-sizing: border-box;
   .ant-col-rtl .login-form-forgot {
     float: left;

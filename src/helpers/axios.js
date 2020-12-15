@@ -1,7 +1,7 @@
 import axios from "axios";
 import config from "../configs";
 const callApi = axios.create({
-  baseURL: `${config.REACT_APP_URL}`
+  baseURL: `${config.REACT_APP_URL}`,
 });
 
 callApi.interceptors.response.use(

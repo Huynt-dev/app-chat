@@ -7,7 +7,7 @@ import callApi from "../../helpers/axios";
 
 const LoginPage = () => {
   const history = useHistory();
-  const [userMail, setUser] = useState("");
+  const [userMail, setUserMail] = useState("");
   const [password, setPassword] = useState("");
   // const [isLoading, setIsLoading] = useState(false);
   // const [hideLogin, setHideLogin] = useState(true);
@@ -16,12 +16,12 @@ const LoginPage = () => {
   const onFinish = async (values) => {
     try {
       // setIsLoading(true);
-      values.perventDefault();
+      // values.perventDefault();
       const res = await callApi.post("/auth/login", {
         email: userMail,
-        password: password,
+        password,
       });
-
+      console.log(userMail);
       const { token, user } = res;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
@@ -57,7 +57,7 @@ const LoginPage = () => {
           prefix={<UserOutlined className="site-form-item-icon" />}
           type="email"
           placeholder="Username"
-          onChange={(e) => setUser(e.target.value)}
+          onChange={(e) => setUserMail(e.target.value)}
         />
       </Form.Item>
       <Form.Item

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import callApi from "../../helpers/axios";
 import { Form, Input, Tooltip, Select, Checkbox, Button } from "antd";
@@ -7,15 +7,18 @@ import { QuestionCircleOutlined } from "@ant-design/icons";
 const { Option } = Select;
 
 const Register = () => {
+  let history = useHistory();
   const [form] = Form.useForm();
-  const [userMail, setUserMail] = useState("");
-  const [name, setName] = useState("");
-  const [userName, setUserName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [nickName, setNickName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [gender, setGender] = useState("");
+
   // const [isLoading, setIsLoading] = useState(false);
   // const [hideLogin, setHideLogin] = useState(true);
   // const [error, setError] = useState("");
-  let history = useHistory();
 
   // useEffect(() => {
   //   if (userMail.length >= 6 && password.length >= 6) {
@@ -25,17 +28,16 @@ const Register = () => {
   //   }
   // }, [userMail, password]);
 
-  const reg = async (e) => {
-    e.preventDefault();
-
+  const onFinish = async (values) => {
     try {
       // setIsLoading(true);
-
       await callApi.post("/auth/register", {
-        email: userMail,
-        name: name,
-        user: userName,
-        password: password,
+        firstName,
+        lastName,
+        email,
+        nickName,
+        password,
+        gender,
       });
 
       history.push("/login");
@@ -43,10 +45,6 @@ const Register = () => {
       // setIsLoading(false);
       // setError(error);
     }
-  };
-
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
   };
 
   const prefixSelector = (
@@ -66,14 +64,12 @@ const Register = () => {
       form={form}
       name="register"
       onFinish={onFinish}
-      onSubmit={reg}
       initialValues={{
         prefix: "84",
       }}
       scrollToFirstError
     >
       <Form.Item
-        name="text"
         label="First Name"
         rules={[
           {
@@ -82,12 +78,12 @@ const Register = () => {
             whitespace: true,
           },
         ]}
+        onChange={(e) => setFirstName(e.target.value)}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
-        name="text"
         label="Last Name"
         rules={[
           {
@@ -96,6 +92,7 @@ const Register = () => {
             whitespace: true,
           },
         ]}
+        onChange={(e) => setLastName(e.target.value)}
       >
         <Input />
       </Form.Item>
@@ -117,6 +114,7 @@ const Register = () => {
             whitespace: true,
           },
         ]}
+        onChange={(e) => setNickName(e.target.value)}
       >
         <Input />
       </Form.Item>
@@ -134,6 +132,7 @@ const Register = () => {
             message: "Please input your E-mail!",
           },
         ]}
+        onChange={(e) => setEmail(e.target.value)}
       >
         <Input />
       </Form.Item>
@@ -174,6 +173,7 @@ const Register = () => {
             },
           }),
         ]}
+        onChange={(e) => setPassword(e.target.value)}
       >
         <Input.Password />
       </Form.Item>
@@ -204,7 +204,7 @@ const Register = () => {
           },
         ]}
       >
-        <Select placeholder="...." allowClear>
+        <Select placeholder="...." allowClear onSelect={(e) => setGender(e)}>
           <Option value="male">male</Option>
           <Option value="female">female</Option>
           <Option value="other">other</Option>
