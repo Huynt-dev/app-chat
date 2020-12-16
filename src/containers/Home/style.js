@@ -61,7 +61,7 @@ export const Time = styled.p`
   justify-content: flex-end;
 `;
 
-export const Wrapper2 = styled.div`
+export const Wrapper2 = styled.form`
   padding: 10px;
   box-sizing: border-box;
 `;

@@ -13,12 +13,14 @@ export default function Routers() {
     <Router>
       <Switch>
         <PrivateRoute path="/" exact component={HomePage} layout={MainLayout} />
+
         <PublicRoute
           path="/login"
           exact
           component={LoginPage}
           layout={NoMenu}
         />
+
         <PublicRoute
           path="/register"
           exact

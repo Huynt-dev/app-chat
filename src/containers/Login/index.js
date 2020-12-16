@@ -21,7 +21,7 @@ const LoginPage = () => {
         email: userMail,
         password,
       });
-      console.log(userMail);
+
       const { token, user } = res;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));

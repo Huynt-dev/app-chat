@@ -16,21 +16,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
 
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [hideLogin, setHideLogin] = useState(true);
-  // const [error, setError] = useState("");
-
-  // useEffect(() => {
-  //   if (userMail.length >= 6 && password.length >= 6) {
-  //     setHideLogin(false);
-  //   } else {
-  //     setHideLogin(true);
-  //   }
-  // }, [userMail, password]);
-
   const onFinish = async (values) => {
     try {
-      // setIsLoading(true);
       await callApi.post("/auth/register", {
         firstName,
         lastName,
@@ -41,10 +28,7 @@ const Register = () => {
       });
 
       history.push("/login");
-    } catch (error) {
-      // setIsLoading(false);
-      // setError(error);
-    }
+    } catch (error) {}
   };
 
   const prefixSelector = (
