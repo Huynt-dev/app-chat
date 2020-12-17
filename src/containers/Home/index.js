@@ -11,42 +11,34 @@ import {
   InputChat,
 } from "./style";
 import { io } from "socket.io-client";
+import { Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
 
 const HomePage = () => {
   const [chat, setChat] = useState();
 
-  useEffect(() => {
-    const socket = io("http://localhost:9999");
-    if (chat !== null) {
-      socket.emit("send-data", chat);
-    }
-  }, [chat]);
+  const messageSend = (e) => {
+    e.preventDefault();
+
+    setChat("");
+  };
+
+  const socket = io("http://localhost:9999");
+  if (chat !== null) {
+    socket.emit("send-data", chat);
+  }
 
   return (
     <>
       <HeaderPage>
         <h1>ok la</h1>
+        <div className="ok">
+          <Avatar shape="square" size={50} icon={<UserOutlined />} />
+          <p>Logout</p>
+        </div>
       </HeaderPage>
       <Contents>
         <Wrapper>
-          <Chat>
-            <Box>
-              <Text>asdasdasdasdas</Text>
-              <Time>10:10</Time>
-            </Box>
-          </Chat>
-          <Chat>
-            <Box>
-              <Text>asdasdasdasdas</Text>
-              <Time>10:10</Time>
-            </Box>
-          </Chat>
-          <Chat>
-            <Box>
-              <Text>asdasdasdasdas</Text>
-              <Time>10:10</Time>
-            </Box>
-          </Chat>
           <Chat>
             <Box>
               <Text>asdasdasdasdas</Text>
@@ -61,7 +53,7 @@ const HomePage = () => {
           </Chat>
         </Wrapper>
       </Contents>
-      <Wrapper2>
+      <Wrapper2 onSubmit={messageSend}>
         <InputChat
           placeholder="Say some thing"
           onChange={(e) => {

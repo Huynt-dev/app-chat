@@ -22,8 +22,16 @@ export const Box = styled.div`
 
 export const HeaderPage = styled(Header)`
   color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   h1 {
     color: white;
+  }
+  .ok {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 `;
 

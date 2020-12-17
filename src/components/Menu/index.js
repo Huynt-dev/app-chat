@@ -24,6 +24,12 @@ const MenuSider = () => {
           <Menu.Item key="3">Tom</Menu.Item>
           <Menu.Item key="4">Bill</Menu.Item>
           <Menu.Item key="5">Alex</Menu.Item>
+          <Menu.Item key="3">Tom</Menu.Item>
+          <Menu.Item key="4">Bill</Menu.Item>
+          <Menu.Item key="5">Alex</Menu.Item>
+          <Menu.Item key="3">Tom</Menu.Item>
+          <Menu.Item key="4">Bill</Menu.Item>
+          <Menu.Item key="5">Alex</Menu.Item>
         </SubMenuA>
         <SubMenuA key="sub2" icon={<TeamOutlined />} title="Team">
           <Menu.Item key="6">Team 1</Menu.Item>

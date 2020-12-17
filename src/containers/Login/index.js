@@ -4,6 +4,7 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { FromA } from "./style";
 import callApi from "../../helpers/axios";
+import { io } from "socket.io-client";
 
 const LoginPage = () => {
   const history = useHistory();
@@ -12,6 +13,15 @@ const LoginPage = () => {
   // const [isLoading, setIsLoading] = useState(false);
   // const [hideLogin, setHideLogin] = useState(true);
   // const [error, setError] = useState("");
+
+  // const [chat, setChat] = useState();
+
+  // useEffect(() => {
+  // const socket = io("http://localhost:9999");
+  //   if (chat !== null) {
+  //     socket.emit("send-data", chat);
+  //   }
+  // }, [chat]);
 
   const onFinish = async (values) => {
     try {
@@ -26,6 +36,7 @@ const LoginPage = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       callApi.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      const socket = io("http://localhost:9999");
       history.push("/");
     } catch (error) {
       // setIsLoading(false);
