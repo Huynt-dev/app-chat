@@ -1,5 +1,5 @@
-import React from "react";
-import { SiderA, MenuA, SubMenuA } from "./style";
+import React, { useState } from "react";
+import { SiderA, MenuA, SubMenuA, AvatarA } from "./style";
 import { Menu } from "antd";
 import {
   DesktopOutlined,
@@ -10,9 +10,16 @@ import {
 } from "@ant-design/icons";
 
 const MenuSider = () => {
+  const [collapsed, setCollapsed] = useState(true);
   return (
-    <SiderA collapsible>
+    <SiderA
+      collapsible
+      collapsed={collapsed}
+      onCollapse={() => setCollapsed(!collapsed)}
+    >
       <div className="logo" />
+      <AvatarA shape="square" size={50} icon={<UserOutlined />} />
+
       <MenuA theme="dark" defaultSelectedKeys={["1"]} mode="inline">
         <Menu.Item key="1" icon={<PieChartOutlined />}>
           Option 1

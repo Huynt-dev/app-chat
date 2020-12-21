@@ -11,16 +11,13 @@ import {
   InputChat,
 } from "./style";
 import { io } from "socket.io-client";
-import { Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
 
 const HomePage = () => {
   const [chat, setChat] = useState();
 
   const messageSend = (e) => {
     e.preventDefault();
-
-    setChat("");
+    setChat(e);
   };
 
   const socket = io("http://localhost:9999");
@@ -30,13 +27,6 @@ const HomePage = () => {
 
   return (
     <>
-      <HeaderPage>
-        <h1>ok la</h1>
-        <div className="ok">
-          <Avatar shape="square" size={50} icon={<UserOutlined />} />
-          <p>Logout</p>
-        </div>
-      </HeaderPage>
       <Contents>
         <Wrapper>
           <Chat>
@@ -55,10 +45,10 @@ const HomePage = () => {
       </Contents>
       <Wrapper2 onSubmit={messageSend}>
         <InputChat
-          placeholder="Say some thing"
           onChange={(e) => {
             setChat(e.target.value);
           }}
+          placeholder="Say some thing"
         />
       </Wrapper2>
     </>

@@ -36,6 +36,9 @@ export const HeaderPage = styled(Header)`
 `;
 
 export const Contents = styled(Content)`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   padding: 10px;
   box-sizing: border-box;
   height: calc(100vh - 144px);
