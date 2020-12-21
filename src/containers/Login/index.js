@@ -4,7 +4,7 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { FromA } from "./style";
 import callApi from "../../helpers/axios";
-import { io } from "socket.io-client";
+//import { io } from "socket.io-client";
 
 const LoginPage = () => {
   const history = useHistory();
@@ -36,7 +36,7 @@ const LoginPage = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       callApi.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      const socket = io("http://localhost:9999");
+
       history.push("/");
     } catch (error) {
       // setIsLoading(false);

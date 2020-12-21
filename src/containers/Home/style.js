@@ -41,7 +41,7 @@ export const Contents = styled(Content)`
   justify-content: flex-end;
   padding: 10px;
   box-sizing: border-box;
-  height: calc(100vh - 144px);
+  height: calc(100vh - 100px);
   overflow-y: scroll;
 `;
 
