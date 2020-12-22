@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Layout, Input } from "antd";
+import { Layout, Input, Col } from "antd";
 const { Header, Content } = Layout;
 
 export const Wrapper = styled.div`
@@ -41,7 +41,7 @@ export const Contents = styled(Content)`
   justify-content: flex-end;
   padding: 10px;
   box-sizing: border-box;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 80px);
   overflow-y: scroll;
 `;
 
@@ -81,4 +81,23 @@ export const InputChat = styled(Input)`
   padding: 25px 10px;
   box-sizing: border-box;
   height: 60px;
+`;
+
+export const Col1 = styled(Col)`
+  background-color: #002140;
+  .room {
+    background-color: white;
+    padding: 15px 10px;
+  }
+  .room:hover {
+    background-color: beige;
+    padding: 15px 10px;
+  }
+  .room p {
+    margin: 0;
+  }
+  .Search {
+    padding: 10px;
+    box-sizing: border-box;
+  }
 `;
