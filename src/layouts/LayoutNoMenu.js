@@ -1,11 +1,11 @@
 import React from "react";
-import { Layout } from "antd";
+import { LayoutA } from "./style";
 
 const NoMenu = ({ children }) => {
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <LayoutA style={{ minHeight: "100vh" }}>
       <>{children}</>
-    </Layout>
+    </LayoutA>
   );
 };
 

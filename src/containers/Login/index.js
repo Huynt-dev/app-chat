@@ -36,7 +36,6 @@ const LoginPage = () => {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       callApi.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-
       history.push("/");
     } catch (error) {
       // setIsLoading(false);

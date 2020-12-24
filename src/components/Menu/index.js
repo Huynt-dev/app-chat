@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { SiderA, MenuA, SubMenuA, AvatarA } from "./style";
-import { Menu } from "antd";
+import { Menu, Popover, List } from "antd";
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -11,6 +12,23 @@ import {
 
 const MenuSider = () => {
   const [collapsed, setCollapsed] = useState(true);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const history = useHistory();
+  const logout = () => {
+    localStorage.removeItem("token");
+    return history.push("/login");
+  };
+
+  const content = (
+    <div>
+      <List>
+        <a href="/login" onClick={logout}>
+          Logout
+        </a>
+      </List>
+    </div>
+  );
+
   return (
     <SiderA
       collapsible
@@ -18,7 +36,15 @@ const MenuSider = () => {
       onCollapse={() => setCollapsed(!collapsed)}
     >
       <div className="logo" />
-      <AvatarA shape="square" size={50} icon={<UserOutlined />} />
+
+      <Popover placement="bottomLeft" content={content} trigger="click">
+        <AvatarA
+          shape="square"
+          size={50}
+          src={user.avatar}
+          icon={<UserOutlined />}
+        />
+      </Popover>
 
       <MenuA theme="dark" defaultSelectedKeys={["1"]} mode="inline">
         <Menu.Item key="1" icon={<PieChartOutlined />}>

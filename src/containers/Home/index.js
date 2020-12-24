@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Row, Input } from "antd";
+import { Col, Row, Input, Tooltip } from "antd";
 
 import {
   Contents,
@@ -18,7 +18,7 @@ const HomePage = () => {
   const [chat, setChat] = useState("");
   const [socket, setSocket] = useState({});
   const [dataUser, setDataUser] = useState([]);
-
+  const time = <span>10:10</span>;
   const messageSend = (e) => {
     e.preventDefault();
     socket.emit("data-chat", chat);
@@ -66,10 +66,12 @@ const HomePage = () => {
           <Wrapper>
             {dataUser.map((x, i) => (
               <Chat key={i}>
-                <Box>
-                  <Text>{x}</Text>
-                  <Time>10:10</Time>
-                </Box>
+                <Tooltip placement="left" title={time}>
+                  <Box>
+                    <Text>{x}</Text>
+                    {/* <Time>10:10</Time> */}
+                  </Box>
+                </Tooltip>
               </Chat>
             ))}
 
@@ -89,6 +91,7 @@ const HomePage = () => {
             name="msg"
             value={chat}
             placeholder="Say some thing"
+            autocomplete="off"
           />
         </Wrapper2>
       </Col>

@@ -13,8 +13,8 @@ export const Wrapper = styled.div`
 export const Box = styled.div`
   max-width: 450px;
   background-color: ${({ theme }) => theme.colors.nav};
-  padding: 10px;
-  margin: 10px 0;
+  padding: 5px 10px;
+  margin: 5px 0;
   box-sizing: border-box;
   border-radius: 20px;
   color: white;
