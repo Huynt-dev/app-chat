@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Input, Tooltip } from "antd";
+import { socket, socketListener } from "../../configs/socket";
 
 import {
   Contents,
@@ -12,13 +13,13 @@ import {
   InputChat,
   Col1,
 } from "./style";
-import { io } from "socket.io-client";
+
 const { Search } = Input;
 const HomePage = () => {
   const [chat, setChat] = useState("");
-  const [socket, setSocket] = useState({});
   const [dataUser, setDataUser] = useState([]);
   const time = <span>10:10</span>;
+
   const messageSend = (e) => {
     e.preventDefault();
     socket.emit("data-chat", chat);
@@ -26,27 +27,10 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    //console.log(localStorage.getItem("token"));
-    var socketIO = io("localhost:9999", {
-      extraHeaders: {
-        Authorization: localStorage.getItem("token"),
-      },
-    });
-    socketIO.on("data-chat-user", (data) => {
-      setDataUser((pre) => [...pre, data]);
-    });
-
-    setSocket(socketIO);
+    socketListener();
   }, []);
 
   // console.log("render", socket);
-
-  const dataServerSend = {
-    id: "xxxx",
-    username: "xxx",
-    message: "xxxyyy",
-    created_at: "time",
-  };
 
   return (
     <Row>
