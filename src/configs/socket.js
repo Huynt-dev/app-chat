@@ -7,13 +7,12 @@ var socket = io("localhost:9999", {
 });
 
 const socketListener = () => {
-  socket
-    .on("connect", () => {
-      console.log("connected");
-    })
-    .on("hello", ({ msg }) => {
-      alert(msg);
-    });
+  socket.on("connect", () => {
+    console.log("connected");
+  });
+  // .on("tokenSuccess", ({ msg }) => {
+  //   alert(msg);
+  // });
 };
 
 export { socket, socketListener };

@@ -20,15 +20,18 @@ const HomePage = () => {
   const [dataUser, setDataUser] = useState([]);
   const time = <span>10:10</span>;
 
-  const messageSend = (e) => {
-    e.preventDefault();
-    socket.emit("data-chat", chat);
-    setChat("");
-  };
-
   useEffect(() => {
     socketListener();
+    socket.on("NEW-MESSAGE", (chat) => {
+      setDataUser((pre) => [...pre, chat]);
+    });
   }, []);
+
+  const messageSend = (e) => {
+    e.preventDefault();
+    socket.emit("NEW-MESSAGE", chat);
+    setChat("");
+  };
 
   // console.log("render", socket);
 
