@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Col, Row, Input, Tooltip } from "antd";
 import { socket, socketListener } from "../../configs/socket";
-
 import {
   Contents,
   Wrapper,
@@ -14,6 +13,7 @@ import {
   Col1,
 } from "./style";
 
+const user = JSON.parse(localStorage.getItem("user"));
 const { Search } = Input;
 const HomePage = () => {
   const [chat, setChat] = useState("");
@@ -53,7 +53,9 @@ const HomePage = () => {
           <Wrapper>
             {dataUser.map((x, i) => (
               <Chat key={i}>
+                {console.log(x)}
                 <Tooltip placement="left" title={time}>
+                  <Text>{user.name}</Text>
                   <Box>
                     <Text>{x}</Text>
                     {/* <Time>10:10</Time> */}
