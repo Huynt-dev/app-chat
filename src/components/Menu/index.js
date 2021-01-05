@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { SiderA, MenuA, SubMenuA, AvatarA } from "./style";
 import { Menu, Popover, List } from "antd";
 import {
@@ -47,19 +47,23 @@ const MenuSider = () => {
 
       <MenuA theme="dark" defaultSelectedKeys={["sub1"]} mode="inline">
         <Menu.Item key="sub1" icon={<MessageOutlined />}>
-          Chat
+          <Link to="/messages">Messages</Link>
         </Menu.Item>
 
         <Menu.Item key="sub2" icon={<UserOutlined />}>
-          Users
+          <Link to="/users">Users</Link>
         </Menu.Item>
 
-        <Menu.Item key="sub3" icon={<NotificationOutlined />} title="Team">
-          notifications
+        <Menu.Item
+          key="sub3"
+          icon={<NotificationOutlined />}
+          title="notifications"
+        >
+          <Link to="/notis">notifications</Link>
         </Menu.Item>
 
         <Menu.Item key="sub4" icon={<FormOutlined />}>
-          Todo
+          <Link to="/todo">Todo</Link>
         </Menu.Item>
       </MenuA>
     </SiderA>

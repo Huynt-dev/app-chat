@@ -16,13 +16,18 @@ export default function Routers() {
       <Switch>
         <PrivateRoute path="/" exact component={HomePage} layout={MainLayout} />
 
-        <PrivateRoute path="/messages" component={Messages} layout={SubMenu} />
+        <PrivateRoute
+          path="/messages"
+          exact
+          component={Messages}
+          layout={SubMenu}
+        />
 
-        <PrivateRoute path="/users" component={Users} layout={SubMenu} />
+        <PrivateRoute path="/users" exact component={Users} layout={SubMenu} />
 
-        <PrivateRoute path="/notis" component={Notis} layout={SubMenu} />
+        <PrivateRoute path="/notis" exact component={Notis} layout={SubMenu} />
 
-        <PrivateRoute path="/todo" component={Todo} layout={SubMenu} />
+        <PrivateRoute path="/todo" exact component={Todo} layout={SubMenu} />
 
         <PublicRoute
           path="/login"
