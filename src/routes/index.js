@@ -14,20 +14,29 @@ export default function Routers() {
   return (
     <Router>
       <Switch>
-        <PrivateRoute path="/" exact component={HomePage} layout={MainLayout} />
+        <PrivateRoute path="/" exact component={Messages} layout={MainLayout} />
 
         <PrivateRoute
           path="/messages"
-          exact
           component={Messages}
-          layout={SubMenu}
+          layout={MainLayout}
         />
 
-        <PrivateRoute path="/users" exact component={Users} layout={SubMenu} />
+        <PrivateRoute
+          path="/users"
+          exact
+          component={Users}
+          layout={MainLayout}
+        />
 
-        <PrivateRoute path="/notis" exact component={Notis} layout={SubMenu} />
+        <PrivateRoute
+          path="/notis"
+          exact
+          component={Notis}
+          layout={MainLayout}
+        />
 
-        <PrivateRoute path="/todo" exact component={Todo} layout={SubMenu} />
+        <PrivateRoute path="/todo" exact component={Todo} layout={MainLayout} />
 
         <PublicRoute
           path="/login"

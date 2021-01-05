@@ -1,12 +1,17 @@
 import React from "react";
 import { LayoutA } from "./style";
-import { Layout } from "antd";
-import { MenuSider } from "../components";
+import { Layout, Row } from "antd";
+import { MenuSider, ChatMain } from "../components";
 const MainLayout = ({ children }) => {
   return (
     <LayoutA style={{ minHeight: "100vh" }}>
       <MenuSider />
-      <Layout>{children}</Layout>
+      <Layout>
+        <Row>
+          {children}
+          <ChatMain />
+        </Row>
+      </Layout>
     </LayoutA>
   );
 };
