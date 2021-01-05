@@ -12,7 +12,6 @@ import {
   InputChat,
   Col1,
 } from "./style";
-import SubMenu from "../../components/subMenu";
 const { TabPane } = Tabs;
 
 const user = JSON.parse(localStorage.getItem("user"));
@@ -39,10 +38,6 @@ const HomePage = () => {
 
   return (
     <Row>
-      <Col1 span={5}>
-        <Search className="Search" placeholder="input search text" />
-        <SubMenu />
-      </Col1>
       <Col span={19}>
         <Contents>
           <Wrapper>

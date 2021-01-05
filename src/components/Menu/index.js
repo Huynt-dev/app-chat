@@ -55,7 +55,7 @@ const MenuSider = () => {
         </Menu.Item>
 
         <Menu.Item key="sub3" icon={<NotificationOutlined />} title="Team">
-          Team 1
+          notifications
         </Menu.Item>
 
         <Menu.Item key="sub4" icon={<FormOutlined />}>
