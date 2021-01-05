@@ -84,13 +84,18 @@ export const InputChat = styled(Input)`
 `;
 
 export const Col1 = styled(Col)`
-  background-color: #002140;
+  background-color: #1890ff;
   .room {
-    background-color: white;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.5) 0%,
+      rgba(240, 242, 245, 1) 100%
+    );
     padding: 15px 10px;
   }
   .room:hover {
-    background-color: beige;
+    background-color: white;
     padding: 15px 10px;
   }
   .room p {

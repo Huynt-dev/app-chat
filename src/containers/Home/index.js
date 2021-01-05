@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Row, Input, Tooltip } from "antd";
+import { Col, Row, Input, Tooltip, Tabs } from "antd";
 import { socket, socketListener } from "../../configs/socket";
 import {
   Contents,
@@ -12,6 +12,8 @@ import {
   InputChat,
   Col1,
 } from "./style";
+import SubMenu from "../../components/subMenu";
+const { TabPane } = Tabs;
 
 const user = JSON.parse(localStorage.getItem("user"));
 const { Search } = Input;
@@ -39,14 +41,7 @@ const HomePage = () => {
     <Row>
       <Col1 span={5}>
         <Search className="Search" placeholder="input search text" />
-        <div className="room">
-          <p>title room</p>
-          <p>test</p>
-        </div>
-        <div className="room">
-          <p>title Room 2</p>
-          <p>testasdasdasdasd</p>
-        </div>
+        <SubMenu />
       </Col1>
       <Col span={19}>
         <Contents>

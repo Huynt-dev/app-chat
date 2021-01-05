@@ -45,28 +45,21 @@ const MenuSider = () => {
         />
       </Popover>
 
-      <MenuA theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-        <Menu.Item key="1" icon={<MessageOutlined />}>
+      <MenuA theme="dark" defaultSelectedKeys={["sub1"]} mode="inline">
+        <Menu.Item key="sub1" icon={<MessageOutlined />}>
           Chat
         </Menu.Item>
-        <SubMenuA key="sub1" icon={<UserOutlined />} title="User">
-          <Menu.Item key="3">Tom</Menu.Item>
-          <Menu.Item key="4">Bill</Menu.Item>
-          <Menu.Item key="5">Alex</Menu.Item>
-          <Menu.Item key="3">Tom</Menu.Item>
-          <Menu.Item key="4">Bill</Menu.Item>
-          <Menu.Item key="5">Alex</Menu.Item>
-          <Menu.Item key="3">Tom</Menu.Item>
-          <Menu.Item key="4">Bill</Menu.Item>
-          <Menu.Item key="5">Alex</Menu.Item>
-        </SubMenuA>
 
-        <Menu.Item key="sub2" icon={<NotificationOutlined />} title="Team">
+        <Menu.Item key="sub2" icon={<UserOutlined />}>
+          Users
+        </Menu.Item>
+
+        <Menu.Item key="sub3" icon={<NotificationOutlined />} title="Team">
           Team 1
         </Menu.Item>
 
-        <Menu.Item key="9" icon={<FormOutlined />}>
-          Files
+        <Menu.Item key="sub4" icon={<FormOutlined />}>
+          Todo
         </Menu.Item>
       </MenuA>
     </SiderA>
