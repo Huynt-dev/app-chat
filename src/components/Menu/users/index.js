@@ -1,13 +1,26 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Input, Badge } from "antd";
 import { Col1, AvatarA, BoxMessage } from "./style";
 import { UserOutlined } from "@ant-design/icons";
+import callApi from "../../../helpers/axios";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const { Search } = Input;
 
 const Users = () => {
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const res = await callApi.get("/users");
+        console.log(res.dataUsers);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    getData();
+  }, []);
+
   return (
     <Col1 span={5}>
       <Search className="Search" placeholder="tìm kiếm..." />

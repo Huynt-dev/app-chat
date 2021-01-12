@@ -4,17 +4,19 @@ import "antd/dist/antd.css";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 // import NotFound from "./NotFound";
-import { HomePage, LoginPage, Register } from "../containers";
+import { LoginPage, Register } from "../containers";
+
+import HomePage from "../pages/HomePage";
 
 import { Messages, Users, Notis, Todo } from "../components";
 
-import { MainLayout, NoMenu, SubMenu } from "../layouts";
+import { MainLayout, NoMenu } from "../layouts";
 
 export default function Routers() {
   return (
     <Router>
       <Switch>
-        <PrivateRoute path="/" exact component={Messages} layout={MainLayout} />
+        <PrivateRoute path="/" exact component={HomePage} layout={MainLayout} />
 
         <PrivateRoute
           path="/messages"

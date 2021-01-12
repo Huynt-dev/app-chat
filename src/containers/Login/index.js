@@ -33,6 +33,7 @@ const LoginPage = () => {
       });
 
       const { token, user } = res;
+      console.log(token);
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
       callApi.defaults.headers.common["Authorization"] = `Bearer ${token}`;

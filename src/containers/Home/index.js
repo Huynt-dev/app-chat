@@ -1,41 +1,23 @@
-// import React, { useState, useEffect } from "react";
-// import { Col, Row, Input, Tooltip } from "antd";
-// import { socket, socketListener } from "../../configs/socket";
-// import {
-//   Contents,
-//   Wrapper,
-//   Wrapper2,
-//   Chat,
-//   Time,
-//   Text,
-//   Box,
-//   InputChat,
-//   Col1,
-// } from "./style";
+import React from "react";
+import { Input } from "antd";
 
-// const user = JSON.parse(localStorage.getItem("user"));
-// const { Search } = Input;
-// const HomePage = () => {
-//   const [chat, setChat] = useState("");
-//   const [dataUser, setDataUser] = useState([]);
-//   const time = <span>10:10</span>;
+const user = JSON.parse(localStorage.getItem("user"));
 
-//   useEffect(() => {
-//     socketListener();
-//     socket.on("NEW-MESSAGE", (chat) => {
-//       setDataUser((pre) => [...pre, chat]);
-//     });
-//   }, []);
+const HomePage = ({ loginActionA, loginA }) => {
+  console.log(loginA);
+  return (
+    <div>
+      <button
+        onClick={(e) => {
+          loginActionA();
+        }}
+      >
+        click on
+      </button>
 
-//   const messageSend = (e) => {
-//     e.preventDefault();
-//     socket.emit("NEW-MESSAGE", chat);
-//     setChat("");
-//   };
+      <h2>values: {loginA.values}</h2>
+    </div>
+  );
+};
 
-//   // console.log("render", socket);
-
-//   return <p>asdsad</p>;
-// };
-
-// export default HomePage;
+export default HomePage;

@@ -1,4 +1,5 @@
 import { io } from "socket.io-client";
+import store from "../store";
 
 var socket = io("localhost:9999", {
   query: {
@@ -9,6 +10,14 @@ var socket = io("localhost:9999", {
 const socketListener = () => {
   socket.on("connect", () => {
     console.log("connected");
+  });
+
+  socket.on("userBecomeOffline", ({ userId }) => {
+    store.dispatch({ type: "user/setOnlineStatus", payload: false });
+  });
+
+  socket.on("userBecomeOnline", ({ userId }) => {
+    store.dispatch({ type: "user/setOnlineStatus", payload: true });
   });
   // .on("tokenSuccess", ({ msg }) => {
   //   alert(msg);

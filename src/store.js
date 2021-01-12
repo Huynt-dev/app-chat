@@ -1,8 +1,7 @@
-import { createStore, combineReducers } from "redux";
+import { createStore } from "redux";
 
-const reducer = combineReducers({});
+import combine from "./reducers";
 
-export default createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+const store = createStore(combine);
+
+export default store;
