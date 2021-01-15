@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from "react";
-
-import { Link, useParams, Switch, Route } from "react-router-dom";
-import { Col, Row, Input, Tooltip, Tabs } from "antd";
+import { useSelector } from "react-redux";
+import { Col, Input, Tooltip, Result } from "antd";
+import { SmileOutlined } from "@ant-design/icons";
 import { socket, socketListener } from "../../configs/socket";
+import store from "../../store";
 import {
   Contents,
   Wrapper,
   Wrapper2,
   Chat,
-  Time,
   Text,
   Box,
   InputChat,
-  Col1,
 } from "./style";
 
-const user = JSON.parse(localStorage.getItem("user"));
+// const user = JSON.parse(localStorage.getItem("user"));
 const { Search } = Input;
 
 const ChatMain = () => {
   const [chat, setChat] = useState("");
+  // const token = useSelector((state) => state.auth.token);
   const [dataUser, setDataUser] = useState([]);
   const time = <span>10:10</span>;
 
   useEffect(() => {
-    socketListener();
+    socketListener(store);
     socket.on("NEW-MESSAGE", (chat) => {
       setDataUser((pre) => [...pre, chat]);
     });
@@ -37,14 +37,14 @@ const ChatMain = () => {
   };
 
   return (
-    <Col span={19}>
+    <Col flex="auto">
       <Contents>
         <Wrapper>
           {dataUser.map((x, i) => (
             <Chat key={i}>
               {console.log(x)}
               <Tooltip placement="left" title={time}>
-                <Text>{user.name}</Text>
+                <Text>name</Text>
                 <Box>
                   <Text>{x}</Text>
                   {/* <Time>10:10</Time> */}
@@ -52,7 +52,6 @@ const ChatMain = () => {
               </Tooltip>
             </Chat>
           ))}
-
           {/* <Chat friend>
               <Box>
                 <Text>asdasdasdasdas</Text>
@@ -61,6 +60,7 @@ const ChatMain = () => {
             </Chat> */}
         </Wrapper>
       </Contents>
+
       <Wrapper2 onSubmit={messageSend}>
         <InputChat
           onChange={(e) => {
@@ -69,7 +69,7 @@ const ChatMain = () => {
           name="msg"
           value={chat}
           placeholder="Say some thing"
-          autocomplete="off"
+          autoComplete="off"
         />
       </Wrapper2>
     </Col>

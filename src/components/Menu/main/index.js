@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { SiderA, MenuA, SubMenuA, AvatarA } from "./style";
 import { Menu, Popover, List } from "antd";
 import {
@@ -11,7 +12,7 @@ import {
 
 const MenuSider = () => {
   const [collapsed, setCollapsed] = useState(true);
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = useSelector((state) => state.auth.user);
   const history = useHistory();
   const logout = () => {
     localStorage.removeItem("token");

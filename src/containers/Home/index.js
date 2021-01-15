@@ -1,23 +1,15 @@
 import React from "react";
-import { Input } from "antd";
+// import { Input } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { counterIn } from "../../redux/auth/reducer";
+// const user = JSON.parse(localStorage.getItem("user"));
 
-const user = JSON.parse(localStorage.getItem("user"));
+const HomePage = () => {
+  const dispatch = useDispatch();
 
-const HomePage = ({ loginActionA, loginA }) => {
-  console.log(loginA);
-  return (
-    <div>
-      <button
-        onClick={(e) => {
-          loginActionA();
-        }}
-      >
-        click on
-      </button>
+  const user = useSelector((state) => state.auth.user);
 
-      <h2>values: {loginA.values}</h2>
-    </div>
-  );
+  return <div></div>;
 };
 
 export default HomePage;

@@ -1,49 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { FromA } from "./style";
-import callApi from "../../helpers/axios";
+import { login } from "../../redux/auth/actions";
 //import { io } from "socket.io-client";
 
 const LoginPage = () => {
   const history = useHistory();
-  const [userMail, setUserMail] = useState("");
-  const [password, setPassword] = useState("");
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [hideLogin, setHideLogin] = useState(true);
-  // const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
 
-  // const [chat, setChat] = useState();
-
-  // useEffect(() => {
-  // const socket = io("http://localhost:9999");
-  //   if (chat !== null) {
-  //     socket.emit("send-data", chat);
-  //   }
-  // }, [chat]);
-
-  const onFinish = async (values) => {
-    try {
-      // setIsLoading(true);
-      // values.perventDefault();
-      const res = await callApi.post("/auth/login", {
-        email: userMail,
-        password,
-      });
-
-      const { token, user } = res;
-      console.log(token);
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
-      callApi.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      history.push("/");
-    } catch (error) {
-      // setIsLoading(false);
-      // setError(
-      //   "Rất tiếc, mật khẩu của bạn không đúng. Vui lòng kiểm tra lại mật khẩu."
-      // );
-    }
+  const handleLogin = (data) => {
+    dispatch(login({ email: data.username, password: data.password, history }));
   };
 
   return (
@@ -53,7 +23,7 @@ const LoginPage = () => {
       initialValues={{
         remember: true,
       }}
-      onFinish={onFinish}
+      onFinish={handleLogin}
     >
       <Form.Item
         name="username"
@@ -68,7 +38,6 @@ const LoginPage = () => {
           prefix={<UserOutlined className="site-form-item-icon" />}
           type="email"
           placeholder="Username"
-          onChange={(e) => setUserMail(e.target.value)}
         />
       </Form.Item>
       <Form.Item
@@ -84,7 +53,6 @@ const LoginPage = () => {
           prefix={<LockOutlined className="site-form-item-icon" />}
           type="password"
           placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
         />
       </Form.Item>
       <Form.Item>

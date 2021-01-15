@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import callApi from "../../helpers/axios";
+import { useDispatch } from "react-redux";
+
 import { Form, Input, Tooltip, Select, Checkbox, Button } from "antd";
 import { FromA } from "./style";
+import { register } from "../../redux/auth/actions";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 const { Option } = Select;
 
 const Register = () => {
+  const dispatch = useDispatch();
   let history = useHistory();
   const [form] = Form.useForm();
   const [firstName, setFirstName] = useState("");
@@ -16,19 +19,18 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
 
-  const onFinish = async (values) => {
-    try {
-      await callApi.post("/auth/register", {
+  const onFinish = async () => {
+    dispatch(
+      register({
         firstName,
         lastName,
         email,
         nickName,
         password,
         gender,
-      });
-
-      history.push("/login");
-    } catch (error) {}
+        history,
+      })
+    );
   };
 
   const prefixSelector = (
@@ -214,6 +216,11 @@ const Register = () => {
       <Form.Item>
         <Button type="primary" htmlType="submit">
           Register
+        </Button>
+      </Form.Item>
+      <Form.Item>
+        <Button href="/login" type="default">
+          Back to login
         </Button>
       </Form.Item>
     </FromA>

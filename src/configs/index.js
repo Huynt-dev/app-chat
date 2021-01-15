@@ -4,12 +4,10 @@ dotenv.config();
 const configs = {
   REACT_APP_URL: process.env.REACT_APP_URL,
   IMAGE_URL: process.env.REACT_APP_IMAGE_URL,
-  social:{
+  social: {
     facebook: "fb.com/huynt.info",
-    phone: "0986699123"
-  }
+    phone: "0986699123",
+  },
 };
-
-
 
 export default configs;
