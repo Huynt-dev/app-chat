@@ -1,58 +1,65 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Input, Badge } from "antd";
-import { Col1, AvatarA, BoxMessage } from "./style";
+import { Input } from "antd";
+import { Row1, Col1, AvatarA, BoxMessage, Container, BadgeA } from "./style";
 import { UserOutlined } from "@ant-design/icons";
 import { getUsers } from "redux/users/action";
-import { getMessage } from "redux/messages/actions";
-import { socket } from "configs/socket";
-
+import { checkUserInRoom } from "redux/rooms/actions";
+// import { socket } from "configs/socket";
 const { Search } = Input;
 
 const Users = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
 
-  const getMessageId = (idUser) => {
-    dispatch(getMessage({ idUser }));
+  const findUser = (idUser) => {
+    dispatch(checkUserInRoom({ idUser, history }));
   };
 
   const users = useSelector((state) => state.user.users);
-  const status = useSelector((state) => state.user.status);
 
   return (
-    <Col1 span={5}>
-      <Search className="Search" placeholder="tìm kiếm..." />
-      {users.map((x, index) => {
-        return (
-          <Link
-            key={index}
-            onClick={() => {
-              getMessageId(x._id);
-            }}
-            to={`/messages/${x._id}`}
-          >
-            <BoxMessage>
-              <Badge status={status}>
-                <AvatarA
-                  shape="square"
-                  size={50}
-                  src={x.avatar}
-                  icon={<UserOutlined />}
-                />
-              </Badge>
-              <div className="text-chat">
-                <p>{x.name}</p>
-              </div>
-            </BoxMessage>
-          </Link>
-        );
-      })}
-    </Col1>
+    <Container>
+      <div>
+        <Search className="Search" placeholder="tìm kiếm..." />
+        <Row1>
+          {users.map((x, index) => {
+            return (
+              <Col1 key={index} span={12}>
+                <div
+                  onClick={() => {
+                    findUser(x._id);
+                  }}
+                >
+                  <BoxMessage>
+                    <BadgeA status="success">
+                      <AvatarA
+                        shape="square"
+                        size={60}
+                        src={x.avatar}
+                        icon={<UserOutlined />}
+                      />
+                    </BadgeA>
+
+                    <div className="text-chat">
+                      <h3>{x.name}</h3>
+                      <p>
+                        Email: <span>{x.email}</span>
+                      </p>
+                    </div>
+                  </BoxMessage>
+                </div>
+              </Col1>
+            );
+          })}
+        </Row1>
+      </div>
+    </Container>
   );
 };
 

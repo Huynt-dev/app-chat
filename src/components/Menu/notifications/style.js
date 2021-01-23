@@ -1,6 +1,10 @@
 import styled, { css } from "styled-components";
-import { Layout, Input, Col } from "antd";
+import { Layout, Input, Col, Row } from "antd";
 const { Header, Content } = Layout;
+
+export const Row1 = styled(Row)`
+  height: 100%;
+`;
 
 export const Col1 = styled(Col)`
   background-color: #1890ff;

@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { setStatus } from "redux/users/reducer";
+import { setNewMessage } from "redux/rooms/reducer";
 
 // debugger;
 const localData = localStorage.getItem("persist:root");
@@ -17,13 +17,18 @@ const socketListener = (store) => {
     console.log("connected");
   });
 
-  socket.on("userBecomeOffline", ({ userId }) => {
-    store.dispatch(setStatus("default"));
+  socket.on("newMessage", (data) => {
+    console.log(data);
+    store.dispatch(setNewMessage(data));
   });
 
-  socket.on("userBecomeOnline", ({ userId }) => {
-    store.dispatch(setStatus("success"));
-  });
+  // socket.on("userBecomeOffline", ({ userId }) => {
+  //   store.dispatch(setStatus("default"));
+  // });
+
+  // socket.on("userBecomeOnline", ({ userId }) => {
+  //   store.dispatch(setStatus("success"));
+  // });
 };
 
 export { socket, socketListener };

@@ -17,7 +17,7 @@ export default function Routers() {
         <PrivateRoute path="/" exact component={HomePage} layout={MainLayout} />
 
         <PrivateRoute
-          path="/messages/"
+          path="/room/:id"
           component={Messages}
           layout={MainLayout}
         />

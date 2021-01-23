@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { Avatar, Col } from "antd";
+import { Avatar, Col, Row } from "antd";
+
+export const Row1 = styled(Row)`
+  height: 100%;
+`;
 
 export const Col1 = styled(Col)`
   background-color: #1890ff;
@@ -37,4 +41,24 @@ export const AvatarA = styled(Avatar)`
   background-color: #c9d4e5;
   box-shadow: 0 0 0 1px #fff;
   box-sizing: border-box;
+`;
+
+export const Rooms = styled.div`
+  display: inline-block;
+  margin-left: 10px;
+  box-sizing: border-box;
+  height: auto;
+  .name {
+    width: 100%;
+    font-weight: bold;
+  }
+
+  .last-message {
+    display: block;
+    font-style: italic;
+    width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 `;

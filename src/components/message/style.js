@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
 
 export const Box = styled.div`
   max-width: 450px;
+  word-break: break-all;
   background-color: ${({ theme }) => theme.colors.nav};
   padding: 5px 10px;
   margin: 5px 0;
@@ -48,14 +49,16 @@ export const Contents = styled(Content)`
 export const Chat = styled.div`
   display: flex;
   justify-content: flex-end;
+  text-align: right;
   ${({ friend }) =>
     friend &&
     css`
       justify-content: flex-start;
+      text-align: left;
       ${Box} {
         background-color: rgb(98, 113, 130);
       }
-    `}
+    `};
 `;
 
 export const Text = styled.p`

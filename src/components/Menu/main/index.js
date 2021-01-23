@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { SiderA, MenuA, SubMenuA, AvatarA } from "./style";
+import { SiderA, MenuA, AvatarA } from "./style";
 import { Menu, Popover, List } from "antd";
 import {
   FormOutlined,
@@ -48,7 +48,7 @@ const MenuSider = () => {
 
       <MenuA theme="dark" defaultSelectedKeys={["sub1"]} mode="inline">
         <Menu.Item key="sub1" icon={<MessageOutlined />}>
-          <Link to="/messages">Messages</Link>
+          <Link to="/room/home">Messages</Link>
         </Menu.Item>
 
         <Menu.Item key="sub2" icon={<UserOutlined />}>

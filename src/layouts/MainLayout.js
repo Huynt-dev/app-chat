@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { LayoutA } from "./style";
 import { Layout, Row } from "antd";
-import { MenuSider, ChatMain } from "../components";
+import { MenuSider } from "../components";
 import { useSelector } from "react-redux";
 import { socket } from "configs/socket";
 
@@ -13,12 +13,7 @@ const MainLayout = ({ children }) => {
   return (
     <LayoutA style={{ minHeight: "100vh" }}>
       <MenuSider />
-      <Layout>
-        <Row>
-          {children}
-          <ChatMain />
-        </Row>
-      </Layout>
+      <Layout>{children}</Layout>
     </LayoutA>
   );
 };
