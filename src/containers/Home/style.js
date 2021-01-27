@@ -1,2 +1,5 @@
-import styled, { css } from "styled-components";
-import { Layout, Input, Col } from "antd";
+import styled from "styled-components";
+
+export const Container = styled.div`
+  margin: auto;
+`;

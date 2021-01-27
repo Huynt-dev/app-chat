@@ -18,7 +18,6 @@ const socketListener = (store) => {
   });
 
   socket.on("newMessage", (data) => {
-    console.log(data);
     store.dispatch(setNewMessage(data));
   });
 

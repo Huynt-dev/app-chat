@@ -56,11 +56,12 @@ const Register = () => {
       scrollToFirstError
     >
       <Form.Item
+        name="firstName"
         label="First Name"
         rules={[
           {
             required: true,
-            message: "Please input your nickname!",
+            message: "Please input your First Name!",
             whitespace: true,
           },
         ]}
@@ -70,11 +71,12 @@ const Register = () => {
       </Form.Item>
 
       <Form.Item
+        name="LastName"
         label="Last Name"
         rules={[
           {
             required: true,
-            message: "Please input your nickname!",
+            message: "Please input your Last Name!",
             whitespace: true,
           },
         ]}
@@ -164,15 +166,7 @@ const Register = () => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item
-        name="phone"
-        label="Phone Number"
-        rules={[
-          {
-            message: "Please input your phone number!",
-          },
-        ]}
-      >
+      <Form.Item name="phone" label="Phone Number">
         <Input
           addonBefore={prefixSelector}
           style={{

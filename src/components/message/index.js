@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Col, Input, Tooltip, Result } from "antd";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { Col, Tooltip, Empty, Popover, Button } from "antd";
 import { useParams } from "react-router-dom";
-// import { SmileOutlined } from "@ant-design/icons";
+import { useSticky, useScrollToBottom } from "react-scroll-to-bottom";
+import Emoji from "react-emoji-render";
+import Picker from "emoji-picker-react";
+import { socket } from "../../configs/socket";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-import { socket, socketListener } from "../../configs/socket";
-import store from "../../store";
 import {
   Contents,
   Wrapper,
@@ -17,6 +15,11 @@ import {
   Text,
   Box,
   InputChat,
+  Icon,
+  EzChat,
+  Send,
+  Like,
+  LikeAndSend,
 } from "./style";
 
 const ChatMain = () => {
@@ -24,14 +27,13 @@ const ChatMain = () => {
   const [chat, setChat] = useState("");
   const messages = useSelector((state) => state.rooms.message);
   const auth = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch();
-  const time = <span>10:10</span>;
 
-  useEffect(() => {
-    socketListener(store);
-  }, []);
+  const [sticky] = useSticky();
+  const scrollToBottom = useScrollToBottom();
 
-  const notify = (text) => toast.info(text);
+  const onEmojiClick = (e, emojiObject) => {
+    setChat(chat + emojiObject.emoji);
+  };
 
   const messageSend = (e) => {
     e.preventDefault();
@@ -41,48 +43,60 @@ const ChatMain = () => {
       user: auth._id,
       message: chat,
     });
-    notify(chat);
     setChat("");
   };
 
   return (
     <Col flex="auto">
-      <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
       <Contents>
         <Wrapper>
-          {messages.map((x) => (
-            <Chat friend={auth._id !== x.user._id} key={x._id}>
-              <Tooltip placement="left" title={x.createdAt}>
-                <Text>{x.user.name}</Text>
-                <Box>
-                  <Text>{x.message}</Text>
-                </Box>
-              </Tooltip>
-            </Chat>
-          ))}
+          {!messages.length ? (
+            <Empty description={false} />
+          ) : (
+            messages.map((x) => (
+              <Chat friend={auth._id !== x.user._id} key={x._id}>
+                <Tooltip placement="left" title={x.createdAt}>
+                  <Text>{x.user.name}</Text>
+                  <Box>
+                    <Text>
+                      <Emoji text={x.message} />
+                    </Text>
+                  </Box>
+                </Tooltip>
+              </Chat>
+            ))
+          )}
+          {!sticky && (
+            <button onClick={scrollToBottom}>
+              Click me to scroll to bottom
+            </button>
+          )}
         </Wrapper>
       </Contents>
 
       <Wrapper2 onSubmit={messageSend}>
-        <InputChat
-          onChange={(e) => {
-            setChat(e.target.value);
-          }}
-          name="msg"
-          value={chat}
-          placeholder="Say some thing"
-          autoComplete="off"
-        />
+        <EzChat>
+          <Popover
+            placement="topLeft"
+            content={<Picker onEmojiClick={onEmojiClick} />}
+            trigger="click"
+          >
+            <Icon />
+          </Popover>
+
+          <InputChat
+            bordered="false"
+            onChange={(e) => {
+              setChat(e.target.value);
+            }}
+            name="msg"
+            value={chat}
+            placeholder="Say some thing"
+            autoComplete="off"
+          />
+
+          <LikeAndSend>{chat.length > 0 ? <Send /> : <Like />}</LikeAndSend>
+        </EzChat>
       </Wrapper2>
     </Col>
   );

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Avatar, Row, Col, Card, Badge } from "antd";
+import { Avatar, Row, Col, Card } from "antd";
 
 export const Container = styled.div`
   background-color: #1890ff;
@@ -19,42 +19,46 @@ export const Col1 = styled(Col)``;
 export const BoxMessage = styled(Card)`
   display: flex;
   align-items: center;
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(240, 242, 245, 1) 100%
-  );
+  background: rgba(255, 255, 255, 0.5);
   margin: 10px;
+  transition-property: all;
+  transition-duration: 2s;
   &:hover {
     background-color: white;
     margin: 10px;
   }
+`;
 
-  .text-chat {
-    display: inline-block;
-    margin-left: 10px;
-    box-sizing: border-box;
-    height: auto;
-    h3 {
-      font-weight: bold;
-    }
+export const AvatarA = styled(Avatar)`
+  margin-bottom: 10px;
+  background-color: red;
+  background-color: #c9d4e5;
+  box-shadow: 0 0 0 1px #fff;
+`;
+
+export const BadgeA = styled.div`
+  display: inline-block;
+`;
+
+export const TextA = styled.div`
+  display: inline-block;
+  margin-left: 10px;
+  box-sizing: border-box;
+  height: auto;
+  h3 {
+    font-weight: bold;
+    margin: 0;
   }
-
   p {
     margin: 0;
     color: black;
   }
 `;
 
-export const BadgeA = styled(Badge)`
-  float: left;
-`;
-
-export const AvatarA = styled(Avatar)`
+export const Btn = styled.div`
   display: block;
-  margin-bottom: 10px;
-  background-color: red;
-  background-color: #c9d4e5;
-  box-shadow: 0 0 0 1px #fff;
+
+  .ant-btn {
+    margin-right: 10px;
+  }
 `;

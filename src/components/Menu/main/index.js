@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setLoginData } from "redux/auth/reducer";
 import { SiderA, MenuA, AvatarA } from "./style";
 import { Menu, Popover, List } from "antd";
 import {
@@ -13,9 +14,15 @@ import {
 const MenuSider = () => {
   const [collapsed, setCollapsed] = useState(true);
   const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
   const history = useHistory();
   const logout = () => {
-    localStorage.removeItem("token");
+    dispatch(
+      setLoginData({
+        token: null,
+        user: {},
+      })
+    );
     return history.push("/login");
   };
 
@@ -37,7 +44,12 @@ const MenuSider = () => {
     >
       <div className="logo" />
 
-      <Popover placement="bottomLeft" content={content} trigger="click">
+      <Popover
+        placement="bottomLeft"
+        title={user.name}
+        content={content}
+        trigger="click"
+      >
         <AvatarA
           shape="square"
           size={50}
