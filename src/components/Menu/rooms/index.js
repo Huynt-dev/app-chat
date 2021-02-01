@@ -1,23 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams, withRouter } from "react-router-dom";
 import { Input } from "antd";
 import { Col1, Row1, BoxMessage, AvatarA, Rooms } from "./style";
 import { UserOutlined } from "@ant-design/icons";
 import { ChatMain } from "../../index";
-import { getRooms } from "redux/rooms/actions";
-import { findMessageInRoom } from "redux/rooms/actions";
+import { getRooms, searchRoom, findMessageInRoom } from "redux/rooms/actions";
+import useDebounce from "helpers/useDebounce";
 const { Search } = Input;
 
-const Messages = () => {
+const Messages = ({ location }) => {
+  const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
   const param = useParams();
   const auth = useSelector((state) => state.auth.user);
 
+  const debouncedSearch = useDebounce(searchValue, 1000);
+
   useEffect(() => {
-    dispatch(getRooms());
-  }, [dispatch]);
+    if (debouncedSearch) {
+      dispatch(searchRoom(debouncedSearch));
+    } else {
+      dispatch(getRooms());
+    }
+  }, [dispatch, debouncedSearch]);
 
   const findMessage = (idRoom) => {
     history.push(`/room/${idRoom}`);
@@ -26,21 +33,21 @@ const Messages = () => {
 
   const rooms = useSelector((state) => state.rooms.room);
 
-  const findBoy = (e) => {
-    const text = e.target.value;
-
-    const dataSearch = rooms.filter((user) => user._id !== auth._id);
-    // .filter((dataUser) => dataUser.name.includes(text));
-    console.log("aaa", dataSearch);
-  };
+  // const findBoy = (e) => {
+  //   const text = e.target.value;
+  //   const dataSearch = rooms.filter((user) => user._id !== auth._id);
+  //   // .filter((dataUser) => dataUser.name.includes(text));
+  //   console.log("aaa", dataSearch);
+  // };
 
   return (
     <Row1>
       <Col1 span={6}>
+        {/* {console.log(location.pathname)} */}
         <Search
           className="Search"
           placeholder="tìm kiếm..."
-          onChange={findBoy}
+          onChange={(e) => setSearchValue(e.target.value)}
         />
 
         {rooms.map((x) => {
@@ -51,32 +58,30 @@ const Messages = () => {
                 findMessage(x._id);
               }}
             >
-              <BoxMessage>
-                {x.users
-                  .filter((user) => user._id !== auth._id)
-                  .map((dataUser) => (
-                    <>
-                      <AvatarA
-                        shape="square"
-                        size={50}
-                        src={dataUser.avatar}
-                        icon={<UserOutlined />}
-                      />
-                      <Rooms>
-                        <p className="name">{dataUser.name}</p>
-                        <p className="last-message">{x.lastMessage}</p>
-                      </Rooms>
-                    </>
-                  ))}
-              </BoxMessage>
+              {x.users
+                .filter((user) => user._id !== auth._id)
+                .map((dataUser) => (
+                  <BoxMessage key={x._id}>
+                    <AvatarA
+                      shape="square"
+                      size={50}
+                      src={dataUser.avatar}
+                      icon={<UserOutlined />}
+                    />
+                    <Rooms>
+                      <p className="name">{dataUser.name}</p>
+                      <p className="last-message">{x.lastMessage}</p>
+                    </Rooms>
+                  </BoxMessage>
+                ))}
             </div>
           );
         })}
       </Col1>
-      {console.log(param)}
-      {param.id === "home" ? "" : <ChatMain />}
+      {console.log(param.id)}
+      {param.id === undefined ? "" : <ChatMain />}
     </Row1>
   );
 };
 
-export default Messages;
+export default withRouter(Messages);

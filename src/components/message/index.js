@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Col, Tooltip, Empty, Popover, Button } from "antd";
+import { Col, Tooltip, Empty, Popover, Modal } from "antd";
 import { useParams } from "react-router-dom";
 import { useSticky, useScrollToBottom } from "react-scroll-to-bottom";
 import Emoji from "react-emoji-render";
 import Picker from "emoji-picker-react";
 import { socket } from "../../configs/socket";
+import useDebounce from "helpers/useDebounce";
 
 import {
   Contents,
@@ -27,21 +28,22 @@ const ChatMain = () => {
   const [chat, setChat] = useState("");
   const messages = useSelector((state) => state.rooms.message);
   const auth = useSelector((state) => state.auth.user);
+  const debounceChat = useDebounce(chat, 300);
 
   const [sticky] = useSticky();
   const scrollToBottom = useScrollToBottom();
 
   const onEmojiClick = (e, emojiObject) => {
-    setChat(chat + emojiObject.emoji);
+    setChat(debounceChat + emojiObject.emoji);
   };
 
-  const messageSend = (e) => {
+  const messageSend = async (e) => {
     e.preventDefault();
 
-    socket.emit("sendMessage", {
+    await socket.emit("sendMessage", {
       room: params.id,
       user: auth._id,
-      message: chat,
+      message: debounceChat,
     });
     setChat("");
   };
@@ -55,14 +57,17 @@ const ChatMain = () => {
           ) : (
             messages.map((x) => (
               <Chat friend={auth._id !== x.user._id} key={x._id}>
-                <Tooltip placement="left" title={x.createdAt}>
+                <div>
                   <Text>{x.user.name}</Text>
-                  <Box>
-                    <Text>
-                      <Emoji text={x.message} />
-                    </Text>
-                  </Box>
-                </Tooltip>
+
+                  <Tooltip placement="left" title={x.createdAt}>
+                    <Box>
+                      <Text>
+                        <Emoji text={x.message} />
+                      </Text>
+                    </Box>
+                  </Tooltip>
+                </div>
               </Chat>
             ))
           )}

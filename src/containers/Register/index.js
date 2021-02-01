@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { Form, Input, Tooltip, Select, Checkbox, Button } from "antd";
-import { FromA } from "./style";
+import { FormA } from "./style";
 import { register } from "../../redux/auth/actions";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 const { Option } = Select;
@@ -11,7 +11,7 @@ const { Option } = Select;
 const Register = () => {
   const dispatch = useDispatch();
   let history = useHistory();
-  const [form] = Form.useForm();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [nickName, setNickName] = useState("");
@@ -19,7 +19,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
 
-  const onFinish = async () => {
+  const onFinish = () => {
     dispatch(
       register({
         firstName,
@@ -46,8 +46,7 @@ const Register = () => {
   );
 
   return (
-    <FromA
-      form={form}
+    <FormA
       name="register"
       onFinish={onFinish}
       initialValues={{
@@ -217,7 +216,7 @@ const Register = () => {
           Back to login
         </Button>
       </Form.Item>
-    </FromA>
+    </FormA>
   );
 };
 

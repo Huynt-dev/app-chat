@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Input, Button, Badge } from "antd";
+import useDebounce from "helpers/useDebounce";
+import { Input, Button, Badge, Result } from "antd";
 import {
   Row1,
   Col1,
@@ -13,33 +14,35 @@ import {
   Btn,
 } from "./style";
 import { UserOutlined } from "@ant-design/icons";
-import { getUsers } from "redux/users/action";
+import { getUsers, searchUser } from "redux/users/action";
 import { checkUserInRoom } from "redux/rooms/actions";
-import { setUsers } from "redux/users/reducer";
-// import { socket } from "configs/socket";
 const { Search } = Input;
 
 const Users = () => {
+  const [searchValue, setSearchValue] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
+  const debouncedSearch = useDebounce(searchValue, 500);
 
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
+  const users = useSelector((state) => state.user.users);
 
   const findUser = (idUser) => {
     dispatch(checkUserInRoom({ idUser, history }));
   };
 
-  const users = useSelector((state) => state.user.users);
-
-  const searchUser = (e) => {
-    const text = e.target.value;
-    const res = text.toLowerCase();
-    const find = users.filter((x) => x.name.toLowerCase().includes(res));
-    // dispatch(setUsers(find));
-    users = find;
-  };
+  useEffect(() => {
+    const callAPI = async () => {
+      if (debouncedSearch) {
+        setIsSearching(true);
+        await dispatch(searchUser(debouncedSearch));
+        setIsSearching(false);
+      } else {
+        dispatch(getUsers());
+      }
+    };
+    callAPI();
+  }, [dispatch, debouncedSearch]);
 
   return (
     <Container>
@@ -47,47 +50,57 @@ const Users = () => {
         <Search
           className="Search"
           placeholder="tìm kiếm..."
-          onChange={searchUser}
+          onChange={(e) => setSearchValue(e.target.value)}
+          loading={isSearching}
         />
+
         <Row1>
-          {users.map((x, index) => {
-            return (
-              <Col1 key={index} span={12}>
-                <div>
-                  <BoxMessage>
-                    <BadgeA>
-                      <Badge status={x.isOnline ? "success" : "default"}>
-                        <AvatarA
-                          shape="square"
-                          size={60}
-                          src={x.avatar}
-                          icon={<UserOutlined />}
-                        />
-                      </Badge>
-                    </BadgeA>
+          {!users.length ? (
+            <Result
+              status="404"
+              title="404"
+              subTitle="Sorry, the page you visited does not exist."
+            />
+          ) : (
+            users.map((x, index) => {
+              return (
+                <Col1 key={index} span={12}>
+                  <div>
+                    <BoxMessage>
+                      <BadgeA>
+                        <Badge status={x.isOnline ? "success" : "default"}>
+                          <AvatarA
+                            shape="square"
+                            size={60}
+                            src={x.avatar}
+                            icon={<UserOutlined />}
+                          />
+                        </Badge>
+                      </BadgeA>
 
-                    <TextA>
-                      <h3>{x.name}</h3>
-                      <p>
-                        Email: <span>{x.email}</span>
-                      </p>
-                    </TextA>
+                      <TextA>
+                        <h3>{x.name}</h3>
+                        <p>
+                          Email: <span>{x.email}</span>
+                        </p>
+                      </TextA>
 
-                    <Btn>
-                      <Button type="primary">Add Friend</Button>
-                      <Button
-                        onClick={() => {
-                          findUser(x._id);
-                        }}
-                      >
-                        Send Messages
-                      </Button>
-                    </Btn>
-                  </BoxMessage>
-                </div>
-              </Col1>
-            );
-          })}
+                      <Btn>
+                        <Button type="primary">Add Friend</Button>
+                        <Button
+                          onClick={() => {
+                            findUser(x._id);
+                          }}
+                        >
+                          Send Messages
+                        </Button>
+                      </Btn>
+                    </BoxMessage>
+                  </div>
+                </Col1>
+              );
+            })
+          )}
         </Row1>
       </div>
     </Container>

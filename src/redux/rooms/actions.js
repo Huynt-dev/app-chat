@@ -14,7 +14,7 @@ export const getRooms = () => async (dispatch) => {
 export const checkUserInRoom = ({ idUser, history }) => async (dispatch) => {
   try {
     const res = await callApi.get(`/users/${idUser}`);
-    // console.log(res.room);
+    console.log(res.room);
     if (res.room._id) {
       const res2 = await callApi.get(`/room/${res.room._id}`);
       dispatch(setMessage(res2));
@@ -28,8 +28,18 @@ export const checkUserInRoom = ({ idUser, history }) => async (dispatch) => {
 export const findMessageInRoom = ({ idRoom, history }) => async (dispatch) => {
   try {
     const res = await callApi.get(`/room/${idRoom}`);
-    // console.log(res);
+    console.log(res);
 
     dispatch(setMessage(res));
   } catch (error) {}
+};
+
+export const searchRoom = (textLower) => async (dispatch) => {
+  try {
+    const res = await callApi.get(`/search?r=${textLower}`);
+
+    await dispatch(setRoom(res.room));
+  } catch (e) {
+    console.log(e);
+  }
 };
