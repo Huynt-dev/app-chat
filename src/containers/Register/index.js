@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { Form, Input, Tooltip, Select, Checkbox, Button } from "antd";
 import { FormA } from "./style";
-import { register } from "../../redux/auth/actions";
+import { registerA } from "redux/auth/actions";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 const { Option } = Select;
 
@@ -21,7 +21,7 @@ const Register = () => {
 
   const onFinish = () => {
     dispatch(
-      register({
+      registerA({
         firstName,
         lastName,
         email,

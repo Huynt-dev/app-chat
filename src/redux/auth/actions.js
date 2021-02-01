@@ -17,7 +17,7 @@ export const login = ({ email, password, history }) => async (dispatch) => {
   }
 };
 
-export const register = ({
+export const registerA = ({
   firstName,
   lastName,
   email,
