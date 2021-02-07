@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 import { setNewMessage } from "redux/rooms/reducer";
-
+import { notification } from "antd";
 // debugger;
 const localData = localStorage.getItem("persist:root");
 const data = JSON.parse(localData) || {};
@@ -17,8 +17,18 @@ const socketListener = (store) => {
     console.log("connected");
   });
 
-  socket.on("newMessage", (data) => {
-    store.dispatch(setNewMessage(data));
+  socket.on("updateMessage", (message) => {
+    store.dispatch(setNewMessage(message));
+  });
+
+  socket.on("newMessage", (message) => {
+    notification.open({
+      message: "Notification Title",
+      description: message.message,
+      onClick: () => {
+        console.log("Notification Clicked!");
+      },
+    });
   });
 
   // socket.on("userBecomeOffline", ({ userId }) => {

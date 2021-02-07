@@ -13,17 +13,35 @@ export const Col1 = styled(Col)`
   }
 `;
 
+export const BoxRoom = styled.div`
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100vh - 52px);
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+  ::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+  .active {
+    background: rgba(255, 255, 255);
+  }
+`;
+
 export const BoxMessage = styled.div`
   display: flex;
   align-items: center;
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(240, 242, 245, 1) 100%
-  );
+  background: rgba(255, 255, 255, 0.4);
   padding: 10px;
-
+  cursor: pointer;
   &:hover {
     background-color: white;
     padding: 10px;
@@ -31,13 +49,11 @@ export const BoxMessage = styled.div`
 
   p {
     margin: 0;
-    color: black;
   }
 `;
 
 export const AvatarA = styled(Avatar)`
   background-color: red;
-  margin-right: 7px;
   background-color: #c9d4e5;
   box-shadow: 0 0 0 1px #fff;
   box-sizing: border-box;
@@ -56,7 +72,7 @@ export const Rooms = styled.div`
   .last-message {
     display: block;
     font-style: italic;
-    width: 250px;
+    max-width: 150px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

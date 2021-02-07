@@ -12,7 +12,7 @@ export const Wrapper = styled(ScrollToBottom)`
 `;
 
 export const Box = styled.div`
-  max-width: 450px;
+  max-width: 300px;
   word-break: break-all;
   background-color: ${({ theme }) => theme.colors.nav};
   padding: 5px 10px;
@@ -41,9 +41,12 @@ export const Contents = styled(Content)`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 10px;
   box-sizing: border-box;
   height: calc(100vh - 100px);
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
 `;
 
 export const Chat = styled.div`
@@ -118,6 +121,7 @@ export const InputChat = styled(Input)`
 export const LikeAndSend = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const Send = styled(SendOutlined)`

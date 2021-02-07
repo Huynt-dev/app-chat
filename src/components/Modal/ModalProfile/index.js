@@ -1,16 +1,49 @@
 import React, { useState } from "react";
-import { Form, Input, Tooltip, Select, Checkbox, Button } from "antd";
+import { Form, Input, Upload, Button, message } from "antd";
 import { InputMail, ButtonMail, ButtonApplyPass } from "./style";
+import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import ImgCrop from "antd-img-crop";
 
-const ModalProfile = ({ firstName, lastName, userName, email }) => {
+function beforeUpload(file) {
+  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
+  if (!isJpgOrPng) {
+    message.error("You can only upload JPG/PNG file!");
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error("Image must smaller than 2MB!");
+  }
+  return isJpgOrPng && isLt2M;
+}
+
+const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
   const [changePassword, setChangePassword] = useState(false);
+  const [imageUrl, setImageUrl] = useState([]);
+  const [loading, setLoading] = useState(false);
+
   const showInput = () => {
     setChangePassword(!changePassword);
+  };
+
+  const onChange = ({ fileList: newFileList }) => {
+    setImageUrl(newFileList);
   };
 
   return (
     <div>
       <Form name="profile" scrollToFirstError>
+        <Form.Item name="avatar">
+          <ImgCrop rotate>
+            <Upload
+              listType="picture-card"
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              onChange={onChange}
+              maxCount={1}
+            >
+              + Upload
+            </Upload>
+          </ImgCrop>
+        </Form.Item>
         <Form.Item name="firstName" label="First Name">
           <Input defaultValue={firstName} />
         </Form.Item>

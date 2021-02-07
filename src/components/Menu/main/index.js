@@ -2,8 +2,18 @@ import React, { useState } from "react";
 import { useHistory, withRouter, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoginData } from "redux/auth/reducer";
-import { SiderA, MenuA, AvatarA, ContentProfile } from "./style";
-import { Menu, Popover, List, Divider, Modal, Button } from "antd";
+import { SiderA, MenuA, AvatarA, ContentProfile, Wrapper } from "./style";
+import {
+  Menu,
+  Popover,
+  List,
+  Divider,
+  Modal,
+  Button,
+  Badge,
+  Row,
+  Col,
+} from "antd";
 import { ModalProfile } from "../../Modal";
 import {
   FormOutlined,
@@ -20,9 +30,9 @@ const MenuSider = ({ location }) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const history = useHistory();
-  {
-    console.log(location.pathname);
-  }
+  // {
+  //   console.log(location.pathname.split("/")[1]);
+  // }
   const logout = () => {
     dispatch(
       setLoginData({
@@ -81,28 +91,30 @@ const MenuSider = ({ location }) => {
         onCancel={handleCancel}
       >
         <ModalProfile
+          avatar={user.avatar}
           firstName={user.first_name}
           lastName={user.last_name}
           userName={user.name}
           email={user.email}
         />
       </Modal>
-
-      <Popover
-        placement="bottomLeft"
-        title="Profile"
-        trigger="click"
-        visible={isVisible}
-        content={content}
-        onVisibleChange={handleVisibleChange}
-      >
-        <AvatarA
-          shape="square"
-          size={50}
-          src={user.avatar}
-          icon={<UserOutlined />}
-        />
-      </Popover>
+      <Wrapper>
+        <Popover
+          placement="bottomLeft"
+          title="Profile"
+          trigger="click"
+          visible={isVisible}
+          content={content}
+          onVisibleChange={handleVisibleChange}
+        >
+          <AvatarA
+            shape="square"
+            size={50}
+            src={user.avatar}
+            icon={<UserOutlined />}
+          />
+        </Popover>
+      </Wrapper>
 
       <MenuA
         theme="dark"
@@ -110,13 +122,29 @@ const MenuSider = ({ location }) => {
         selectedKeys={[location.pathname]}
         mode="inline"
       >
-        <Menu.Item key={"/room"} icon={<MessageOutlined />}>
+        <Menu.Item key="/room" icon={<MessageOutlined />}>
           <NavLink to="/room">Messages</NavLink>
         </Menu.Item>
         <Menu.Item key="/users" icon={<UserOutlined />}>
           <NavLink to="/users">Users</NavLink>
         </Menu.Item>
-        <Menu.Item
+
+        {/* <Row>
+          <Col md={0}>
+            <Wrapper>
+              <Badge count={5}>
+                <AvatarA
+                  shape="square"
+                  size={50}
+                  src={user.avatar}
+                  icon={<UserOutlined />}
+                />
+              </Badge>
+            </Wrapper>
+          </Col>
+        </Row> */}
+
+        {/* <Menu.Item
           key="/notis"
           icon={<NotificationOutlined />}
           title="notifications"
@@ -125,7 +153,7 @@ const MenuSider = ({ location }) => {
         </Menu.Item>
         <Menu.Item key="/todo" icon={<FormOutlined />}>
           <NavLink to="/todo">Todo</NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
       </MenuA>
     </SiderA>
   );

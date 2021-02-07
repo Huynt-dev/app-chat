@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Col, Tooltip, Empty, Popover, Modal } from "antd";
+import { Col, Tooltip, Empty, Popover, Modal, Button } from "antd";
 import { useParams } from "react-router-dom";
-import { useSticky, useScrollToBottom } from "react-scroll-to-bottom";
+import ScrollToBottom, {
+  useSticky,
+  useScrollToBottom,
+} from "react-scroll-to-bottom";
 import Emoji from "react-emoji-render";
 import Picker from "emoji-picker-react";
 import { socket } from "../../configs/socket";
@@ -28,11 +31,14 @@ const ChatMain = () => {
   const [chat, setChat] = useState("");
   const messages = useSelector((state) => state.rooms.message);
   const auth = useSelector((state) => state.auth.user);
-  const debounceChat = useDebounce(chat, 300);
+  const debounceChat = useDebounce(chat, 100);
 
-  const [sticky] = useSticky();
   const scrollToBottom = useScrollToBottom();
-
+  const [sticky] = useSticky();
+  const textInput = useRef(null);
+  const inputRef = () => {
+    textInput.current.focus();
+  };
   const onEmojiClick = (e, emojiObject) => {
     setChat(debounceChat + emojiObject.emoji);
   };
@@ -51,7 +57,12 @@ const ChatMain = () => {
   return (
     <Col flex="auto">
       <Contents>
-        <Wrapper>
+        <Wrapper debug="false">
+          {!sticky && (
+            <Button onClick={scrollToBottom}>
+              Click me to scroll to bottom
+            </Button>
+          )}
           {!messages.length ? (
             <Empty description={false} />
           ) : (
@@ -70,11 +81,6 @@ const ChatMain = () => {
                 </div>
               </Chat>
             ))
-          )}
-          {!sticky && (
-            <button onClick={scrollToBottom}>
-              Click me to scroll to bottom
-            </button>
           )}
         </Wrapper>
       </Contents>
@@ -98,6 +104,8 @@ const ChatMain = () => {
             value={chat}
             placeholder="Say some thing"
             autoComplete="off"
+            ref={textInput}
+            onMouseEnter={inputRef}
           />
 
           <LikeAndSend>{chat.length > 0 ? <Send /> : <Like />}</LikeAndSend>

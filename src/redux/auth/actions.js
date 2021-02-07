@@ -1,5 +1,6 @@
 import callApi from "../../helpers/axios";
 import { setLoginData } from "./reducer";
+import { message } from "antd";
 
 export const login = ({ email, password, history }) => async (dispatch) => {
   try {
@@ -10,9 +11,10 @@ export const login = ({ email, password, history }) => async (dispatch) => {
 
     dispatch(setLoginData(res));
     callApi.defaults.headers.common["Authorization"] = `Bearer ${res.token}`;
+    message.success("login success");
     history.push("/");
   } catch (e) {
-    // history.push("/login");
+    message.error("Email or Password is invalid");
     console.log(e);
   }
 };
@@ -35,8 +37,7 @@ export const registerA = ({
       password,
       gender,
     });
-
+    message.success("Register success");
     history.push("/login");
-    console.log("register success");
   } catch (error) {}
 };

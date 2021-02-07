@@ -25,7 +25,10 @@ export const MenuA = styled(Menu)`
 export const SubMenuA = styled(SubMenu)``;
 
 export const AvatarA = styled(Avatar)`
-  margin: 15px;
   background-color: #c9d4e5;
   box-shadow: 0 0 0 1px #fff;
+`;
+
+export const Wrapper = styled.div`
+  margin: 15px;
 `;
