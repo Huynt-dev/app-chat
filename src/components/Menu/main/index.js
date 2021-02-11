@@ -69,18 +69,23 @@ const MenuSider = ({ location }) => {
       </List>
       <Divider />
       <List>
-        <a href="/login" onClick={logout}>
+        <Button
+          style={{ width: "100%" }}
+          danger
+          type="primary"
+          onClick={logout}
+        >
           Logout
-        </a>
+        </Button>
       </List>
     </ContentProfile>
   );
 
   return (
     <SiderA
-      collapsible
+      // collapsible
       collapsed={collapsed}
-      onCollapse={() => setCollapsed(!collapsed)}
+      // onCollapse={() => setCollapsed(!collapsed)}
     >
       <div className="logo" />
 

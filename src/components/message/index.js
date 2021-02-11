@@ -1,11 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Col, Tooltip, Empty, Popover, Modal, Button } from "antd";
+import { Col, Tooltip, Empty, Popover, Modal, Button, message } from "antd";
 import { useParams } from "react-router-dom";
-import ScrollToBottom, {
-  useSticky,
-  useScrollToBottom,
-} from "react-scroll-to-bottom";
+import { useSticky, useScrollToBottom } from "react-scroll-to-bottom";
 import Emoji from "react-emoji-render";
 import Picker from "emoji-picker-react";
 import { socket } from "../../configs/socket";
@@ -29,9 +26,11 @@ import {
 const ChatMain = () => {
   const params = useParams();
   const [chat, setChat] = useState("");
+  const [like, setLike] = useState("👍");
   const messages = useSelector((state) => state.rooms.message);
   const auth = useSelector((state) => state.auth.user);
   const debounceChat = useDebounce(chat, 100);
+  const debounceLike = useDebounce(like, 1000);
 
   const scrollToBottom = useScrollToBottom();
   const [sticky] = useSticky();
@@ -39,14 +38,14 @@ const ChatMain = () => {
   const inputRef = () => {
     textInput.current.focus();
   };
+
   const onEmojiClick = (e, emojiObject) => {
-    setChat(debounceChat + emojiObject.emoji);
+    setChat(chat + emojiObject.emoji);
   };
 
-  const messageSend = async (e) => {
+  const messageSend = (e) => {
     e.preventDefault();
-
-    await socket.emit("sendMessage", {
+    socket.emit("sendMessage", {
       room: params.id,
       user: auth._id,
       message: debounceChat,
@@ -54,10 +53,18 @@ const ChatMain = () => {
     setChat("");
   };
 
+  const messageLike = () => {
+    socket.emit("sendMessage", {
+      room: params.id,
+      user: auth._id,
+      message: debounceLike,
+    });
+  };
+
   return (
     <Col flex="auto">
       <Contents>
-        <Wrapper debug="false">
+        <Wrapper>
           {!sticky && (
             <Button onClick={scrollToBottom}>
               Click me to scroll to bottom
@@ -108,7 +115,13 @@ const ChatMain = () => {
             onMouseEnter={inputRef}
           />
 
-          <LikeAndSend>{chat.length > 0 ? <Send /> : <Like />}</LikeAndSend>
+          <LikeAndSend>
+            {chat.length > 0 ? (
+              <Send onClick={messageSend} />
+            ) : (
+              <Like onClick={messageLike} />
+            )}
+          </LikeAndSend>
         </EzChat>
       </Wrapper2>
     </Col>

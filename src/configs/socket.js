@@ -18,6 +18,7 @@ const socketListener = (store) => {
   });
 
   socket.on("updateMessage", (message) => {
+    console.log(message);
     store.dispatch(setNewMessage(message));
   });
 

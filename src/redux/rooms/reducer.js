@@ -18,7 +18,13 @@ const roomReducer = createSlice({
     },
     setNewMessage: (state, action) => {
       console.log("set new message");
-      state.message.push(action.payload);
+      state.message.push(action.payload.message);
+
+      state.room.map((item) => {
+        if (item._id !== action.payload.idRoom) return item;
+
+        return { ...item, lastMessage: action.payload.message };
+      });
     },
   },
 });

@@ -19,6 +19,10 @@ const Messages = () => {
   const debouncedSearch = useDebounce(searchValue, 1000);
 
   useEffect(() => {
+    if (param.id !== undefined) {
+      dispatch(findMessageInRoom({ idRoom: param.id, history }));
+    }
+
     if (debouncedSearch) {
       dispatch(searchRoom(debouncedSearch));
     } else {
@@ -58,7 +62,7 @@ const Messages = () => {
                       className={x._id === param.id ? "active" : ""}
                       key={x._id}
                     >
-                      <Badge count={5} size="small">
+                      <Badge count={666} size="small">
                         <AvatarA
                           shape="square"
                           size={50}
@@ -77,7 +81,7 @@ const Messages = () => {
           })}
         </BoxRoom>
       </Col1>
-      {console.log(param.id)}
+      {/* {console.log(param.id)} */}
       {param.id === undefined ? "" : <ChatMain />}
     </Row1>
   );
