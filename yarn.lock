@@ -2361,7 +2361,7 @@
     "@babel/runtime" "^7.12.1"
     "react-easy-crop" "^3.3.0"
 
-"antd@^4.9.2":
+"antd@^4.0.0", "antd@^4.9.2":
   "integrity" "sha512-unZxnwihmIzHDGchZxuJDJe2tfeKWpsZHrrIdQR2hIie7I1lYSn4GyFZvn8MAkQvpum7Mj41eTJKib5TVfYxQw=="
   "resolved" "https://registry.npmjs.org/antd/-/antd-4.9.2.tgz"
   "version" "4.9.2"
@@ -9875,7 +9875,7 @@
     "strip-ansi" "6.0.0"
     "text-table" "0.2.0"
 
-"react-dom@^17.0.1":
+"react-dom@^16.8.0", "react-dom@^17.0.1", "react-dom@>=16.4.0":
   "integrity" "sha512-6eV150oJZ9U2t9svnsspTMrWNyHc6chX0KzDeAOXftRa8bNeOKTTfCJ7KorIwenkHd2xqVTBTCZd79yk/lx/Ug=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-17.0.1.tgz"
   "version" "17.0.1"
@@ -10049,7 +10049,7 @@
     "prop-types" "15.7.2"
     "simple-update-in" "2.2.0"
 
-"react@^17.0.1":
+"react@^16.8.0", "react@^17.0.1", "react@>=16.4.0":
   "integrity" "sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.1.tgz"
   "version" "17.0.1"

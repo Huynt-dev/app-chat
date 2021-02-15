@@ -2,7 +2,10 @@ import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Col, Tooltip, Empty, Popover, Modal, Button, message } from "antd";
 import { useParams } from "react-router-dom";
-import { useSticky, useScrollToBottom } from "react-scroll-to-bottom";
+import ScrollToBottom, {
+  useSticky,
+  useScrollToBottom,
+} from "react-scroll-to-bottom";
 import Emoji from "react-emoji-render";
 import Picker from "emoji-picker-react";
 import { socket } from "../../configs/socket";
@@ -21,16 +24,16 @@ import {
   Send,
   Like,
   LikeAndSend,
+  BtnToBotton,
 } from "./style";
 
 const ChatMain = () => {
   const params = useParams();
   const [chat, setChat] = useState("");
-  const [like, setLike] = useState("👍");
   const messages = useSelector((state) => state.rooms.message);
   const auth = useSelector((state) => state.auth.user);
   const debounceChat = useDebounce(chat, 100);
-  const debounceLike = useDebounce(like, 1000);
+  const debounceLike = useDebounce("👍", 1000);
 
   const scrollToBottom = useScrollToBottom();
   const [sticky] = useSticky();
@@ -38,7 +41,6 @@ const ChatMain = () => {
   const inputRef = () => {
     textInput.current.focus();
   };
-
   const onEmojiClick = (e, emojiObject) => {
     setChat(chat + emojiObject.emoji);
   };
@@ -64,12 +66,7 @@ const ChatMain = () => {
   return (
     <Col flex="auto">
       <Contents>
-        <Wrapper>
-          {!sticky && (
-            <Button onClick={scrollToBottom}>
-              Click me to scroll to bottom
-            </Button>
-          )}
+        <Wrapper mode="bottom">
           {!messages.length ? (
             <Empty description={false} />
           ) : (
@@ -88,6 +85,11 @@ const ChatMain = () => {
                 </div>
               </Chat>
             ))
+          )}
+          {!sticky && (
+            <BtnToBotton onClick={scrollToBottom}>
+              Click me to scroll to bottom
+            </BtnToBotton>
           )}
         </Wrapper>
       </Contents>

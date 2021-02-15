@@ -29,15 +29,16 @@ export const findMessageInRoom = ({ idRoom, history }) => async (dispatch) => {
   try {
     // socket.emit("Join-room", idRoom);
     const res = await callApi.get(`/room/${idRoom}`);
-    history.push(`/room/${idRoom}`);
-    dispatch(setMessage(res));
+    await history.push(`/room/${idRoom}`);
+    await dispatch(setMessage(res));
   } catch (error) {}
 };
 
 export const searchRoom = (textLower) => async (dispatch) => {
   try {
-    const res = await callApi.get(`/search?r=${textLower}`);
-    await dispatch(setRoom(res.room));
+    const res = await callApi.get(`/search/room?r=${textLower}`);
+    await dispatch(setRoom(res));
+    // console.log(res.room);
   } catch (e) {
     console.log(e);
   }

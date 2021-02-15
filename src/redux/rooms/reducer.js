@@ -17,18 +17,32 @@ const roomReducer = createSlice({
       state.message = action.payload.message;
     },
     setNewMessage: (state, action) => {
-      console.log("set new message");
-      state.message.push(action.payload.message);
+      console.log("gg", action.payload.message);
+      state.message.push(action.payload);
+    },
 
-      state.room.map((item) => {
-        if (item._id !== action.payload.idRoom) return item;
-
-        return { ...item, lastMessage: action.payload.message };
+    setLastMessage: (state, action) => {
+      const a = state.room.map((item) => {
+        if (item._id === action.payload.idRoom) {
+          return {
+            ...item,
+            who: action.payload.message.user.name,
+            lastMessage: action.payload.message.message,
+          };
+        }
+        return item;
       });
+
+      return { room: [...a], message: [...state.message] };
     },
   },
 });
 
-export const { setRoom, setMessage, setNewMessage } = roomReducer.actions;
+export const {
+  setRoom,
+  setMessage,
+  setNewMessage,
+  setLastMessage,
+} = roomReducer.actions;
 
 export default roomReducer.reducer;

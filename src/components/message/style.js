@@ -132,3 +132,15 @@ export const Send = styled(SendOutlined)`
 export const Like = styled(LikeTwoTone)`
   font-size: 24px;
 `;
+
+export const BtnToBotton = styled.button`
+  border-radius: 10px;
+  border-width: 0;
+  bottom: 5px;
+  cursor: pointer;
+  height: 20px;
+  outline: 0;
+  position: absolute;
+  right: 20px;
+  width: 20px;
+`;

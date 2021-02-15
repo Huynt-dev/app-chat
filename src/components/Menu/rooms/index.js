@@ -35,7 +35,9 @@ const Messages = () => {
   };
 
   const rooms = useSelector((state) => state.rooms.room);
-
+  {
+    console.log(rooms);
+  }
   return (
     <Row1>
       <Col1 xs={0} sm={0} md={8}>
@@ -72,7 +74,9 @@ const Messages = () => {
                       </Badge>
                       <Rooms>
                         <p className="name">{dataUser.name}</p>
-                        <p className="last-message">{x.lastMessage}</p>
+                        <p className="last-message">
+                          {x.who === auth.name ? "Bạn" : x.who}: {x.lastMessage}
+                        </p>
                       </Rooms>
                     </BoxMessage>
                   ))}

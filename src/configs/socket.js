@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { setNewMessage } from "redux/rooms/reducer";
+import { setNewMessage, setLastMessage } from "redux/rooms/reducer";
 import { notification } from "antd";
 // debugger;
 const localData = localStorage.getItem("persist:root");
@@ -17,9 +17,12 @@ const socketListener = (store) => {
     console.log("connected");
   });
 
-  socket.on("updateMessage", (message) => {
-    console.log(message);
-    store.dispatch(setNewMessage(message));
+  socket.on("updateMessage", (data) => {
+    console.log(data);
+    store.dispatch(setNewMessage(data.message));
+    store.dispatch(
+      setLastMessage({ message: data.message, idRoom: data.idRoom })
+    );
   });
 
   socket.on("newMessage", (message) => {
