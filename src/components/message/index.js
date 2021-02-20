@@ -8,7 +8,7 @@ import ScrollToBottom, {
 } from "react-scroll-to-bottom";
 import Emoji from "react-emoji-render";
 import Picker from "emoji-picker-react";
-import { socket } from "../../configs/socket";
+import { socket } from "configs/socket";
 import useDebounce from "helpers/useDebounce";
 
 import {

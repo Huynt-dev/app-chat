@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, withRouter } from "react-router-dom";
+import { socket } from "configs/socket";
 import { Input, Badge } from "antd";
 import { Col1, Row1, BoxMessage, AvatarA, Rooms, BoxRoom } from "./style";
 import { UserOutlined } from "@ant-design/icons";
@@ -15,19 +16,25 @@ const Messages = () => {
   const history = useHistory();
   const param = useParams();
   const auth = useSelector((state) => state.auth.user);
+  const [isSearching, setIsSearching] = useState(false);
 
   const debouncedSearch = useDebounce(searchValue, 1000);
 
   useEffect(() => {
-    if (param.id !== undefined) {
-      dispatch(findMessageInRoom({ idRoom: param.id, history }));
-    }
+    const callAPI = async () => {
+      if (param.id !== undefined) {
+        dispatch(findMessageInRoom({ idRoom: param.id, history }));
+      }
 
-    if (debouncedSearch) {
-      dispatch(searchRoom(debouncedSearch));
-    } else {
-      dispatch(getRooms());
-    }
+      if (debouncedSearch) {
+        setIsSearching(true);
+        await dispatch(searchRoom(debouncedSearch));
+        setIsSearching(false);
+      } else {
+        dispatch(getRooms());
+      }
+    };
+    callAPI();
   }, [dispatch, debouncedSearch]);
 
   const findMessage = (idRoom) => {
@@ -35,9 +42,7 @@ const Messages = () => {
   };
 
   const rooms = useSelector((state) => state.rooms.room);
-  {
-    console.log(rooms);
-  }
+
   return (
     <Row1>
       <Col1 xs={0} sm={0} md={8}>
@@ -46,6 +51,7 @@ const Messages = () => {
           className="Search"
           placeholder="tìm kiếm..."
           onChange={(e) => setSearchValue(e.target.value)}
+          loading={isSearching}
         />
 
         <BoxRoom>
@@ -75,7 +81,11 @@ const Messages = () => {
                       <Rooms>
                         <p className="name">{dataUser.name}</p>
                         <p className="last-message">
-                          {x.who === auth.name ? "Bạn" : x.who}: {x.lastMessage}
+                          {x.who.length === 0
+                            ? "Chưa có tin nhắn"
+                            : x.who === auth.name
+                            ? "Bạn" + ": " + x.lastMessage
+                            : x.who + ": " + x.lastMessage}
                         </p>
                       </Rooms>
                     </BoxMessage>

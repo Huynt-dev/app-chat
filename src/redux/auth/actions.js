@@ -1,5 +1,5 @@
 import callApi from "../../helpers/axios";
-import { setLoginData } from "./reducer";
+import { setLoginData, updateUser } from "./reducer";
 import { message } from "antd";
 
 export const login = ({ email, password, history }) => async (dispatch) => {
@@ -27,7 +27,7 @@ export const registerA = ({
   password,
   gender,
   history,
-}) => async () => {
+}) => async (dispatch) => {
   try {
     await callApi.post("/auth/register", {
       firstName,
@@ -39,5 +39,21 @@ export const registerA = ({
     });
     message.success("Register success");
     history.push("/login");
-  } catch (error) {}
+  } catch (error) {
+    console.log("action", error);
+  }
+};
+
+export const changeInfo = (data) => async (dispatch) => {
+  try {
+    const res = await callApi.post(`/profile/i/`, {
+      data,
+    });
+    dispatch(updateUser(res));
+    // console.log(res);
+    message.success("Change success");
+    // history.push("/");
+  } catch (error) {
+    console.log("action", error);
+  }
 };

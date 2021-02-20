@@ -13,9 +13,13 @@ const authReducer = createSlice({
       state.user = action.payload.user;
       state.token = action.payload.token;
     },
+    updateUser: (state, action) => {
+      state.user.first_name = action.payload.data.firstName;
+      state.user.last_name = action.payload.data.lastName;
+    },
   },
 });
 
-export const { setLoginData } = authReducer.actions;
+export const { setLoginData, updateUser } = authReducer.actions;
 
 export default authReducer.reducer;

@@ -92,6 +92,11 @@ const MenuSider = ({ location }) => {
       <Modal
         title="Profile"
         visible={isModalVisible}
+        footer={[
+          <Button key="back" onClick={handleCancel}>
+            Cancel
+          </Button>,
+        ]}
         onOk={handleOk}
         onCancel={handleCancel}
       >
@@ -103,6 +108,7 @@ const MenuSider = ({ location }) => {
           email={user.email}
         />
       </Modal>
+
       <Wrapper>
         <Popover
           placement="bottomLeft"
@@ -133,32 +139,6 @@ const MenuSider = ({ location }) => {
         <Menu.Item key="/users" icon={<UserOutlined />}>
           <NavLink to="/users">Users</NavLink>
         </Menu.Item>
-
-        {/* <Row>
-          <Col md={0}>
-            <Wrapper>
-              <Badge count={5}>
-                <AvatarA
-                  shape="square"
-                  size={50}
-                  src={user.avatar}
-                  icon={<UserOutlined />}
-                />
-              </Badge>
-            </Wrapper>
-          </Col>
-        </Row> */}
-
-        {/* <Menu.Item
-          key="/notis"
-          icon={<NotificationOutlined />}
-          title="notifications"
-        >
-          <NavLink to="/notis">notifications</NavLink>
-        </Menu.Item>
-        <Menu.Item key="/todo" icon={<FormOutlined />}>
-          <NavLink to="/todo">Todo</NavLink>
-        </Menu.Item> */}
       </MenuA>
     </SiderA>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Form, Input, Tooltip, Select, Checkbox, Button } from "antd";
 import { FormA } from "./style";
@@ -18,6 +18,9 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
+
+  const error = useSelector((state) => state.auth.error);
+  console.log(error);
 
   const onFinish = () => {
     dispatch(
@@ -205,6 +208,9 @@ const Register = () => {
         <Checkbox>
           I have read the <a href="/">agreement</a>
         </Checkbox>
+      </Form.Item>
+      <Form.Item>
+        <p>{error}</p>
       </Form.Item>
       <Form.Item>
         <Button type="primary" htmlType="submit">
