@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   room: [],
   message: [],
+  toUser: "",
 };
 
 const roomReducer = createSlice({
@@ -17,7 +18,6 @@ const roomReducer = createSlice({
       state.message = action.payload.message;
     },
     setNewMessage: (state, action) => {
-      console.log("gg", action.payload.message);
       state.message.push(action.payload);
     },
 
@@ -35,6 +35,9 @@ const roomReducer = createSlice({
 
       return { room: [...a], message: [...state.message] };
     },
+    sendTo: (state, action) => {
+      state.toUser = action.payload;
+    },
   },
 });
 
@@ -43,6 +46,7 @@ export const {
   setMessage,
   setNewMessage,
   setLastMessage,
+  sendTo,
 } = roomReducer.actions;
 
 export default roomReducer.reducer;

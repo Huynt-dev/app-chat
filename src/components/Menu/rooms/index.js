@@ -7,6 +7,7 @@ import { Col1, Row1, BoxMessage, AvatarA, Rooms, BoxRoom } from "./style";
 import { UserOutlined } from "@ant-design/icons";
 import { ChatMain } from "../../index";
 import { getRooms, searchRoom, findMessageInRoom } from "redux/rooms/actions";
+import { sendTo } from "redux/rooms/reducer";
 import useDebounce from "helpers/useDebounce";
 const { Search } = Input;
 
@@ -14,16 +15,24 @@ const Messages = () => {
   const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
-  const param = useParams();
+  const params = useParams();
   const auth = useSelector((state) => state.auth.user);
+  // const toUser = useSelector((state) => state.rooms.toUser);
   const [isSearching, setIsSearching] = useState(false);
 
   const debouncedSearch = useDebounce(searchValue, 1000);
 
   useEffect(() => {
     const callAPI = async () => {
-      if (param.id !== undefined) {
-        dispatch(findMessageInRoom({ idRoom: param.id, history }));
+      if (params.id !== undefined) {
+        dispatch(
+          findMessageInRoom({
+            idRoom: params.id,
+            toUser: params.toUser,
+            history,
+          })
+        );
+        dispatch(sendTo(params.toUser));
       }
 
       if (debouncedSearch) {
@@ -37,10 +46,11 @@ const Messages = () => {
     callAPI();
   }, [dispatch, debouncedSearch]);
 
-  const findMessage = (idRoom) => {
-    dispatch(findMessageInRoom({ idRoom, history }));
+  const findMessage = (idRoom, toUser) => {
+    dispatch(findMessageInRoom({ idRoom, toUser, history }));
+    dispatch(sendTo(toUser));
   };
-
+  console.log("params", params);
   const rooms = useSelector((state) => state.rooms.room);
 
   return (
@@ -57,18 +67,16 @@ const Messages = () => {
         <BoxRoom>
           {rooms.map((x) => {
             return (
-              <div
-                key={x._id}
-                onClick={() => {
-                  findMessage(x._id);
-                }}
-              >
+              <div key={x._id}>
                 {x.users
                   .filter((user) => user._id !== auth._id)
                   .map((dataUser) => (
                     <BoxMessage
-                      className={x._id === param.id ? "active" : ""}
+                      className={x._id === params.id ? "active" : ""}
                       key={x._id}
+                      onClick={() => {
+                        findMessage(x._id, dataUser._id);
+                      }}
                     >
                       <Badge count={666} size="small">
                         <AvatarA
@@ -84,7 +92,7 @@ const Messages = () => {
                           {x.who.length === 0
                             ? "Chưa có tin nhắn"
                             : x.who === auth.name
-                            ? "Bạn" + ": " + x.lastMessage
+                            ? "You" + ": " + x.lastMessage
                             : x.who + ": " + x.lastMessage}
                         </p>
                       </Rooms>
@@ -95,8 +103,8 @@ const Messages = () => {
           })}
         </BoxRoom>
       </Col1>
-      {/* {console.log(param.id)} */}
-      {param.id === undefined ? "" : <ChatMain />}
+      {/* {console.log(params.id)} */}
+      {params.id === undefined ? "" : <ChatMain />}
     </Row1>
   );
 };

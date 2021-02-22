@@ -32,6 +32,8 @@ const ChatMain = () => {
   const [chat, setChat] = useState("");
   const messages = useSelector((state) => state.rooms.message);
   const auth = useSelector((state) => state.auth.user);
+  // const toUser = useSelector((state) => state.rooms.toUser);
+
   const debounceChat = useDebounce(chat, 100);
   const debounceLike = useDebounce("👍", 1000);
 
@@ -51,6 +53,7 @@ const ChatMain = () => {
       room: params.id,
       user: auth._id,
       message: debounceChat,
+      toUser: params.toUser,
     });
     setChat("");
   };
@@ -60,6 +63,7 @@ const ChatMain = () => {
       room: params.id,
       user: auth._id,
       message: debounceLike,
+      toUser: params.toUser,
     });
   };
 
@@ -67,14 +71,14 @@ const ChatMain = () => {
     <Col flex="auto">
       <Contents>
         <Wrapper mode="bottom">
+          {console.log(messages)}
           {!messages.length ? (
             <Empty description={false} />
           ) : (
             messages.map((x) => (
               <Chat friend={auth._id !== x.user._id} key={x._id}>
                 <div>
-                  <Text>{x.user.name}</Text>
-
+                  {x.user._id ? <Text>{x.user.name}</Text> : ""}
                   <Tooltip placement="left" title={x.createdAt}>
                     <Box>
                       <Text>

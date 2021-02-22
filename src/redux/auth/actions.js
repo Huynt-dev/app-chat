@@ -57,3 +57,15 @@ export const changeInfo = (data) => async (dispatch) => {
     console.log("action", error);
   }
 };
+
+export const changePass = (data) => async (dispatch) => {
+  try {
+    const res = await callApi.post(`/profile/p/`, {
+      data,
+    });
+    // dispatch(updateUser(res));
+    message.success("Change Password success");
+  } catch (error) {
+    console.log("action", error);
+  }
+};

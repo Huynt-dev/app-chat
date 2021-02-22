@@ -1,6 +1,7 @@
 import { io } from "socket.io-client";
 import { setNewMessage, setLastMessage } from "redux/rooms/reducer";
-import { notification } from "antd";
+import { notification, Typography } from "antd";
+const { Text } = Typography;
 // debugger;
 const localData = localStorage.getItem("persist:root");
 const data = JSON.parse(localData) || {};
@@ -27,11 +28,8 @@ const socketListener = (store) => {
 
   socket.on("newMessage", (message) => {
     notification.open({
-      message: "Notification Title",
-      description: message.message,
-      onClick: () => {
-        console.log("Notification Clicked!");
-      },
+      message: "New message from " + message.user.name,
+      description: message.message.substring(0, 35),
     });
   });
 

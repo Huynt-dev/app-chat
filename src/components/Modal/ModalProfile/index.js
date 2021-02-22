@@ -3,7 +3,8 @@ import { Form, Input, Upload, Button, message } from "antd";
 import { InputMail, ButtonMail, ButtonApplyPass } from "./style";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { changeInfo } from "redux/auth/actions";
+import { changeInfo, changePass } from "redux/auth/actions";
+import { setLoginData } from "redux/auth/reducer";
 import ImgCrop from "antd-img-crop";
 
 function beforeUpload(file) {
@@ -41,6 +42,13 @@ const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
 
   const submitPassword = (values) => {
     console.log("submitPassword:", values);
+    dispatch(changePass(values));
+    dispatch(
+      setLoginData({
+        token: null,
+        user: {},
+      })
+    );
   };
 
   const initialValues = {
