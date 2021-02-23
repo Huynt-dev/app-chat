@@ -25,11 +25,6 @@ const checkAuth = () => (next) => (action) => {
   return next(action);
 };
 
-// const store = createStore(
-// rootReducer: rootReducer,
-//   applyMiddleware([thunk, logger, ..])
-// );
-
 const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>

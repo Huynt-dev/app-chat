@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Layout, Input, Button } from "antd";
+import { Layout, Input } from "antd";
 import ScrollToBottom from "react-scroll-to-bottom";
 import { SmileTwoTone, LikeTwoTone, SendOutlined } from "@ant-design/icons";
 const { Header, Content } = Layout;

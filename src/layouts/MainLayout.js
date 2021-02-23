@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { LayoutA } from "./style";
-import { Layout, Row } from "antd";
+import { Layout } from "antd";
 import { MenuSider } from "../components";
 import { useSelector } from "react-redux";
 import { socket } from "configs/socket";

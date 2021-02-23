@@ -1,17 +1,15 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import GoogleLogin from "react-google-login";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { FromA } from "./style";
 import { login } from "../../redux/auth/actions";
-//import { io } from "socket.io-client";
 
 const LoginPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const token = useSelector((state) => state.auth.token);
 
   const responseGoogle = (response) => {
     console.log(response);

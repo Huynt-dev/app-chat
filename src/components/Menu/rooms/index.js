@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, withRouter } from "react-router-dom";
-import { socket } from "configs/socket";
 import { Input, Badge } from "antd";
 import { Col1, Row1, BoxMessage, AvatarA, Rooms, BoxRoom } from "./style";
 import { UserOutlined } from "@ant-design/icons";
@@ -17,7 +16,6 @@ const Messages = () => {
   const history = useHistory();
   const params = useParams();
   const auth = useSelector((state) => state.auth.user);
-  // const toUser = useSelector((state) => state.rooms.toUser);
   const [isSearching, setIsSearching] = useState(false);
 
   const debouncedSearch = useDebounce(searchValue, 1000);
@@ -50,13 +48,12 @@ const Messages = () => {
     dispatch(findMessageInRoom({ idRoom, toUser, history }));
     dispatch(sendTo(toUser));
   };
-  console.log("params", params);
+
   const rooms = useSelector((state) => state.rooms.room);
 
   return (
     <Row1>
       <Col1 xs={0} sm={0} md={8}>
-        {/* {console.log(location.pathname)} */}
         <Search
           className="Search"
           placeholder="tìm kiếm..."
@@ -103,7 +100,6 @@ const Messages = () => {
           })}
         </BoxRoom>
       </Col1>
-      {/* {console.log(params.id)} */}
       {params.id === undefined ? "" : <ChatMain />}
     </Row1>
   );

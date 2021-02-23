@@ -1,11 +1,8 @@
 import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Col, Tooltip, Empty, Popover, Modal, Button, message } from "antd";
+import { Col, Tooltip, Empty, Popover } from "antd";
 import { useParams } from "react-router-dom";
-import ScrollToBottom, {
-  useSticky,
-  useScrollToBottom,
-} from "react-scroll-to-bottom";
+
 import Emoji from "react-emoji-render";
 import Picker from "emoji-picker-react";
 import { socket } from "configs/socket";
@@ -24,7 +21,6 @@ import {
   Send,
   Like,
   LikeAndSend,
-  BtnToBotton,
 } from "./style";
 
 const ChatMain = () => {
@@ -32,13 +28,9 @@ const ChatMain = () => {
   const [chat, setChat] = useState("");
   const messages = useSelector((state) => state.rooms.message);
   const auth = useSelector((state) => state.auth.user);
-  // const toUser = useSelector((state) => state.rooms.toUser);
 
   const debounceChat = useDebounce(chat, 100);
   const debounceLike = useDebounce("👍", 1000);
-
-  const scrollToBottom = useScrollToBottom();
-  const [sticky] = useSticky();
   const textInput = useRef(null);
   const inputRef = () => {
     textInput.current.focus();
@@ -71,14 +63,13 @@ const ChatMain = () => {
     <Col flex="auto">
       <Contents>
         <Wrapper mode="bottom">
-          {console.log(messages)}
           {!messages.length ? (
             <Empty description={false} />
           ) : (
             messages.map((x) => (
               <Chat friend={auth._id !== x.user._id} key={x._id}>
                 <div>
-                  {x.user._id ? <Text>{x.user.name}</Text> : ""}
+                  <Text>{x.user.name}</Text>
                   <Tooltip placement="left" title={x.createdAt}>
                     <Box>
                       <Text>
@@ -89,11 +80,6 @@ const ChatMain = () => {
                 </div>
               </Chat>
             ))
-          )}
-          {!sticky && (
-            <BtnToBotton onClick={scrollToBottom}>
-              Click me to scroll to bottom
-            </BtnToBotton>
           )}
         </Wrapper>
       </Contents>

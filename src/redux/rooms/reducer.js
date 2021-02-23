@@ -14,7 +14,6 @@ const roomReducer = createSlice({
       state.room = action.payload.room;
     },
     setMessage: (state, action) => {
-      console.log("set message");
       state.message = action.payload.message;
     },
     setNewMessage: (state, action) => {

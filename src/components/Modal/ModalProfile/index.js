@@ -23,7 +23,6 @@ const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
   const [form] = Form.useForm();
   const [changePassword, setChangePassword] = useState(false);
   const [imageUrl, setImageUrl] = useState([]);
-  // const [loading, setLoading] = useState(false);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
@@ -36,7 +35,6 @@ const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
   };
 
   const onFinish = (values) => {
-    // console.log("Finish:", values);
     dispatch(changeInfo(values));
   };
 

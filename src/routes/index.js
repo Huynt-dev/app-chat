@@ -6,7 +6,7 @@ import PublicRoute from "./PublicRoute";
 // import NotFound from "./NotFound";
 import { LoginPage, Register, HomePage } from "../containers";
 
-import { Messages, Users, Notis, Todo } from "../components";
+import { Messages, Users } from "../components";
 
 import { MainLayout, NoMenu } from "../layouts";
 
@@ -35,15 +35,6 @@ export default function Routers() {
           component={Users}
           layout={MainLayout}
         />
-
-        <PrivateRoute
-          path="/notis"
-          exact
-          component={Notis}
-          layout={MainLayout}
-        />
-
-        <PrivateRoute path="/todo" exact component={Todo} layout={MainLayout} />
 
         <PublicRoute
           path="/login"

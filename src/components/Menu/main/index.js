@@ -3,25 +3,9 @@ import { useHistory, withRouter, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoginData } from "redux/auth/reducer";
 import { SiderA, MenuA, AvatarA, ContentProfile, Wrapper } from "./style";
-import {
-  Menu,
-  Popover,
-  List,
-  Divider,
-  Modal,
-  Button,
-  Badge,
-  Row,
-  Col,
-} from "antd";
+import { Menu, Popover, List, Divider, Modal, Button } from "antd";
 import { ModalProfile } from "../../Modal";
-import {
-  FormOutlined,
-  MessageOutlined,
-  NotificationOutlined,
-  UserOutlined,
-  EditOutlined,
-} from "@ant-design/icons";
+import { MessageOutlined, UserOutlined } from "@ant-design/icons";
 
 const MenuSider = ({ location }) => {
   const [collapsed, setCollapsed] = useState(true);
@@ -30,9 +14,6 @@ const MenuSider = ({ location }) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const history = useHistory();
-  // {
-  //   console.log(location.pathname.split("/")[1]);
-  // }
   const logout = () => {
     dispatch(
       setLoginData({
@@ -82,11 +63,7 @@ const MenuSider = ({ location }) => {
   );
 
   return (
-    <SiderA
-      // collapsible
-      collapsed={collapsed}
-      // onCollapse={() => setCollapsed(!collapsed)}
-    >
+    <SiderA collapsed={collapsed}>
       <div className="logo" />
 
       <Modal

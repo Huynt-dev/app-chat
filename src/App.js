@@ -7,7 +7,6 @@ import { socketListener } from "./configs/socket";
 
 function App() {
   useEffect(() => {
-    // console.log("render");
     socketListener(store);
   }, []);
 
