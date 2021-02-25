@@ -45,7 +45,6 @@ const MenuSider = ({ location }) => {
     <ContentProfile>
       <List>
         <p>{user.name}</p>
-
         <Button onClick={showModal}>Edit</Button>
       </List>
       <Divider />
@@ -105,7 +104,6 @@ const MenuSider = ({ location }) => {
       </Wrapper>
 
       <MenuA
-        theme="dark"
         defaultSelectedKeys={["/"]}
         selectedKeys={[location.pathname]}
         mode="inline"

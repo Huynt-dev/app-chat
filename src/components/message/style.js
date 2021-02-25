@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { Layout, Input } from "antd";
 import ScrollToBottom from "react-scroll-to-bottom";
-import { SmileTwoTone, LikeTwoTone, SendOutlined } from "@ant-design/icons";
+import { SmileOutlined, LikeFilled, SendOutlined } from "@ant-design/icons";
 const { Header, Content } = Layout;
 
 export const Wrapper = styled(ScrollToBottom)`
@@ -19,16 +19,17 @@ export const Box = styled.div`
   margin: 5px 0;
   box-sizing: border-box;
   border-radius: 20px;
-  color: white;
+  color: ${({ theme }) => theme.fonts.light};
 `;
 
 export const HeaderPage = styled(Header)`
-  color: white;
+  color: ${({ theme }) => theme.fonts.light};
+  background-color: ${({ theme }) => theme.colors.header};
   display: flex;
   justify-content: space-between;
   align-items: center;
   h1 {
-    color: white;
+    color: ${({ theme }) => theme.fonts.light};
   }
   .ok {
     display: flex;
@@ -42,8 +43,9 @@ export const Contents = styled(Content)`
   flex-direction: column;
   justify-content: flex-end;
   box-sizing: border-box;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 102px);
   overflow-y: auto;
+
   ::-webkit-scrollbar {
     width: 8px;
   }
@@ -53,6 +55,7 @@ export const Chat = styled.div`
   display: flex;
   justify-content: flex-end;
   text-align: right;
+
   box-sizing: border-box;
   padding: 0 50px;
   ${({ friend }) =>
@@ -87,16 +90,19 @@ export const Wrapper2 = styled.form`
 `;
 
 export const EzChat = styled.div`
+  background-color: none;
+  border: 1px solid ${({ theme }) => theme.colors.nav};
   display: flex;
   width: 100%;
   padding: 0 10px;
   box-sizing: border-box;
-  background-color: white;
+
   margin: 10px;
   border-radius: 20px;
 `;
 
-export const Icon = styled(SmileTwoTone)`
+export const Icon = styled(SmileOutlined)`
+  color: ${({ theme }) => theme.colors.nav};
   display: flex;
   align-items: center;
   font-size: 26px;
@@ -126,10 +132,11 @@ export const LikeAndSend = styled.div`
 
 export const Send = styled(SendOutlined)`
   font-size: 24px;
-  color: #1890ff;
+  color: ${({ theme }) => theme.colors.nav};
 `;
 
-export const Like = styled(LikeTwoTone)`
+export const Like = styled(LikeFilled)`
+  color: ${({ theme }) => theme.colors.nav};
   font-size: 24px;
 `;
 

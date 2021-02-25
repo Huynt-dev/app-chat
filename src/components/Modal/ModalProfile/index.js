@@ -1,37 +1,16 @@
 import React, { useState } from "react";
-import { Form, Input, Upload, Button, message } from "antd";
-import { InputMail, ButtonMail, ButtonApplyPass } from "./style";
-import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
-import { useDispatch, useSelector } from "react-redux";
+import { Form, Input, Button } from "antd";
+import { InputMail, ButtonApplyPass } from "./style";
+import { useDispatch } from "react-redux";
 import { changeInfo, changePass } from "redux/auth/actions";
 import { setLoginData } from "redux/auth/reducer";
-import ImgCrop from "antd-img-crop";
-
-function beforeUpload(file) {
-  const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
-  if (!isJpgOrPng) {
-    message.error("You can only upload JPG/PNG file!");
-  }
-  const isLt2M = file.size / 1024 / 1024 < 2;
-  if (!isLt2M) {
-    message.error("Image must smaller than 2MB!");
-  }
-  return isJpgOrPng && isLt2M;
-}
 
 const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
-  const [form] = Form.useForm();
   const [changePassword, setChangePassword] = useState(false);
-  const [imageUrl, setImageUrl] = useState([]);
-  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
   const showInput = () => {
     setChangePassword(!changePassword);
-  };
-
-  const onChange = ({ fileList: newFileList }) => {
-    setImageUrl(newFileList);
   };
 
   const onFinish = (values) => {
@@ -64,17 +43,6 @@ const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
         initialValues={initialValues}
         scrollToFirstError
       >
-        <ImgCrop rotate>
-          <Upload
-            listType="picture-card"
-            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-            onChange={onChange}
-            maxCount={1}
-          >
-            + Upload
-          </Upload>
-        </ImgCrop>
-
         <Form.Item name="firstName" label="First Name">
           <Input />
         </Form.Item>
@@ -89,7 +57,6 @@ const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
 
         <Form.Item label="Email">
           <InputMail defaultValue={email} disabled />
-          {/* <ButtonMail htmlType="button">Check Mail</ButtonMail> */}
         </Form.Item>
 
         <Form.Item>
@@ -98,7 +65,6 @@ const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
           </ButtonApplyPass>
         </Form.Item>
       </Form>
-      {/*  changePassword */}
       {changePassword ? (
         <Form onFinish={submitPassword}>
           <Form.Item

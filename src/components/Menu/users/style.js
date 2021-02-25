@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Avatar, Row, Col, Card } from "antd";
 
 export const Container = styled.div`
-  background-color: #1890ff;
+  background-color: ${({ theme }) => theme.colors.nav};
   height: 100%;
   .Search {
     padding: 10px;

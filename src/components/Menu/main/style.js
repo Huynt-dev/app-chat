@@ -14,15 +14,21 @@ export const ContentProfile = styled.div`
   }
 `;
 
-export const SiderA = styled(Sider)``;
+export const SiderA = styled(Sider)`
+  background-color: ${({ theme }) => theme.colors.header};
+`;
 
 export const MenuA = styled(Menu)`
   .active {
-    color: #fcfcfc;
+    background-color: ${({ theme }) => theme.colors.active};
   }
+  background-color: ${({ theme }) => theme.colors.header};
+  color: ${({ theme }) => theme.fonts.light};
 `;
 
-export const SubMenuA = styled(SubMenu)``;
+export const SubMenuA = styled(SubMenu)`
+  background-color: ${({ theme }) => theme.colors.header};
+`;
 
 export const AvatarA = styled(Avatar)`
   background-color: #c9d4e5;

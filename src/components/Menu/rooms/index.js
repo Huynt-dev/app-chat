@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams, withRouter } from "react-router-dom";
-import { Input, Badge } from "antd";
-import { Col1, Row1, BoxMessage, AvatarA, Rooms, BoxRoom } from "./style";
+import { Badge } from "antd";
+import {
+  Col1,
+  Row1,
+  BoxMessage,
+  AvatarA,
+  Rooms,
+  BoxRoom,
+  SearchRoom,
+} from "./style";
 import { UserOutlined } from "@ant-design/icons";
 import { ChatMain } from "../../index";
 import { getRooms, searchRoom, findMessageInRoom } from "redux/rooms/actions";
 import { sendTo } from "redux/rooms/reducer";
 import useDebounce from "helpers/useDebounce";
-const { Search } = Input;
 
 const Messages = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -54,7 +61,7 @@ const Messages = () => {
   return (
     <Row1>
       <Col1 xs={0} sm={0} md={8}>
-        <Search
+        <SearchRoom
           className="Search"
           placeholder="tìm kiếm..."
           onChange={(e) => setSearchValue(e.target.value)}
