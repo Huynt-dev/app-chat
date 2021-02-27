@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   room: [],
+  countNewMessage: [],
   message: [],
   toUser: "",
 };
@@ -12,12 +13,14 @@ const roomReducer = createSlice({
   reducers: {
     setRoom: (state, action) => {
       state.room = action.payload.room;
+      state.countNewMessage = action.payload.countNewMessage;
     },
     setMessage: (state, action) => {
       state.message = action.payload.message;
     },
     setNewMessage: (state, action) => {
-      state.message.push(action.payload);
+      state.message.push(action.payload.message);
+      state.countNewMessage.push(action.payload.setNewSeen);
     },
 
     setLastMessage: (state, action) => {
@@ -32,7 +35,7 @@ const roomReducer = createSlice({
         return item;
       });
 
-      return { room: [...a], message: [...state.message] };
+      return { ...state, room: [...a], message: [...state.message] };
     },
     sendTo: (state, action) => {
       state.toUser = action.payload;

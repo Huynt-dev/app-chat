@@ -61,10 +61,10 @@ const ChatMain = () => {
   };
 
   return (
-    <Col flex="auto">
+    <Col xs={20} md={16}>
       <Contents>
         <Wrapper mode="bottom">
-          {!messages ? (
+          {!messages.length ? (
             <Empty description={false} />
           ) : (
             messages.map((x) => (
@@ -78,6 +78,7 @@ const ChatMain = () => {
                       </Text>
                     </Box>
                   </Tooltip>
+                  <Text>{x.isSeen === true ? "đã xem" : ""}</Text>
                 </div>
               </Chat>
             ))

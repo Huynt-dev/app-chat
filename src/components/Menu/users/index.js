@@ -86,7 +86,6 @@ const Users = () => {
                       </TextA>
 
                       <Btn>
-                        <Button type="primary">Add Friend</Button>
                         <Button
                           onClick={() => {
                             findUser(x._id);

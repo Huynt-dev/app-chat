@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Avatar, Row, Col, Card } from "antd";
 
 export const Container = styled.div`
@@ -16,6 +16,20 @@ export const Row1 = styled(Row)`
 
 export const Col1 = styled(Col)``;
 
+const animation = keyframes`
+  from {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    opacity: 1;
+  }
+
+  to {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
+  }
+`;
+
 export const BoxMessage = styled(Card)`
   display: flex;
   align-items: center;
@@ -23,6 +37,8 @@ export const BoxMessage = styled(Card)`
   margin: 10px;
   transition-property: all;
   transition-duration: 2s;
+  -webkit-animation: ${animation}0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: ${animation} 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   &:hover {
     background-color: white;
     margin: 10px;
