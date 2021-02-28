@@ -20,7 +20,7 @@ const roomReducer = createSlice({
     },
     setNewMessage: (state, action) => {
       state.message.push(action.payload.message);
-      state.countNewMessage.push(action.payload.setNewSeen);
+      state.countNewMessage.push(action.payload.newMessage);
     },
 
     setLastMessage: (state, action) => {
@@ -35,10 +35,37 @@ const roomReducer = createSlice({
         return item;
       });
 
-      return { ...state, room: [...a], message: [...state.message] };
+      return { ...state, room: [...a] };
     },
     sendTo: (state, action) => {
       state.toUser = action.payload;
+    },
+    seen: (state, action) => {
+      // let a = state.message.map((item) => {
+      //   // console.log("asdasdasd", item.toUser);
+      //   if (item.room === action.payload.idRoom) {
+      //     return {
+      //       ...item,
+      //       isSeen: true,
+      //     };
+      //   }
+      //   return item;
+      // });
+
+      let b = state.countNewMessage.map((item) => {
+        // console.log("asdasdasd", item.toUser);
+        if (
+          item.room === action.payload.idRoom &&
+          item.user === action.payload.toUser
+        ) {
+          return {
+            ...item,
+            isSeen: true,
+          };
+        }
+        return item;
+      });
+      return { ...state, countNewMessage: [...b] };
     },
   },
 });
@@ -49,6 +76,7 @@ export const {
   setNewMessage,
   setLastMessage,
   sendTo,
+  seen,
 } = roomReducer.actions;
 
 export default roomReducer.reducer;

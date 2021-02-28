@@ -16,7 +16,14 @@ const socketListener = (store) => {
   socket.on("connect", () => {
     socket.on("updateMessage", (data) => {
       store.dispatch(
-        setNewMessage({ message: data.message, setNewSeen: { isSeen: false } })
+        setNewMessage({
+          message: data.message,
+          newMessage: {
+            isSeen: data.message.isSeen,
+            room: data.message.room,
+            user: data.message.user._id,
+          },
+        })
       );
       store.dispatch(
         setLastMessage({ message: data.message, idRoom: data.idRoom })

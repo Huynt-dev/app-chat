@@ -1,7 +1,12 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { Layout, Input } from "antd";
 import ScrollToBottom from "react-scroll-to-bottom";
-import { SmileOutlined, LikeFilled, SendOutlined } from "@ant-design/icons";
+import {
+  SmileOutlined,
+  LikeFilled,
+  SendOutlined,
+  CheckCircleOutlined,
+} from "@ant-design/icons";
 const { Header, Content } = Layout;
 
 export const Wrapper = styled(ScrollToBottom)`
@@ -51,13 +56,36 @@ export const Contents = styled(Content)`
   }
 `;
 
+const aRight = keyframes`
+  from {
+    -webkit-transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+            transform: translateX(-1000px) scaleX(2.5) scaleY(0.2);
+    -webkit-transform-origin: 100% 50%;
+            transform-origin: 100% 50%;
+    -webkit-filter: blur(40px);
+            filter: blur(40px);
+    opacity: 0;
+  }
+
+  to {
+    -webkit-transform: translateX(0) scaleY(1) scaleX(1);
+            transform: translateX(0) scaleY(1) scaleX(1);
+    -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+    -webkit-filter: blur(0);
+            filter: blur(0);
+    opacity: 1;
+  }
+`;
+
 export const Chat = styled.div`
   display: flex;
   justify-content: flex-end;
   text-align: right;
-
   box-sizing: border-box;
   padding: 0 50px;
+  -webkit-animation: ${aRight} 0.6s;
+  animation: ${aRight} 0.6s;
   ${({ friend }) =>
     friend &&
     css`
@@ -73,6 +101,17 @@ export const Text = styled.p`
   padding: 5px;
   margin: 0;
   box-sizing: border-box;
+`;
+
+export const CheckSeen = styled(CheckCircleOutlined)`
+  padding: 5px;
+  margin: 0;
+  box-sizing: border-box;
+  ${({ unSeen }) =>
+    unSeen &&
+    css`
+      color: green;
+    `}
 `;
 
 export const Time = styled.p`

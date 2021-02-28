@@ -29,8 +29,7 @@ export const findMessageInRoom = ({ idRoom, toUser, history }) => async (
   dispatch
 ) => {
   try {
-    // socket.emit("Join-room", idRoom);
-    const res = await callApi.get(`/room/${idRoom}`);
+    const res = await callApi.get(`/room/${idRoom}/${toUser}`);
     console.log(res);
     await history.push(`/room/${idRoom}/${toUser}`);
     await dispatch(setMessage(res));

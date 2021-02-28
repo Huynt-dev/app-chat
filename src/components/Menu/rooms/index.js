@@ -16,7 +16,7 @@ import {
 import { UserOutlined, MessageOutlined } from "@ant-design/icons";
 import { ChatMain } from "../../index";
 import { getRooms, searchRoom, findMessageInRoom } from "redux/rooms/actions";
-import { sendTo } from "redux/rooms/reducer";
+import { sendTo, seen } from "redux/rooms/reducer";
 import useDebounce from "helpers/useDebounce";
 
 const Messages = () => {
@@ -58,13 +58,15 @@ const Messages = () => {
   const findMessage = (idRoom, toUser) => {
     dispatch(findMessageInRoom({ idRoom, toUser, history }));
     dispatch(sendTo(toUser));
+    dispatch(seen({ idRoom, toUser }));
   };
 
   const rooms = useSelector((state) => state.rooms.room);
   const countNewMessage = useSelector((state) => state.rooms.countNewMessage);
-  const seen = (roomId) => {
+
+  const unSeen = (roomId, userId) => {
     return countNewMessage
-      .filter((x) => x.room === roomId)
+      .filter((a) => a.room === roomId && a.user === userId)
       .reduce((total, x) => (x.isSeen === false ? total + 1 : total), 0);
   };
 
@@ -113,23 +115,26 @@ const Messages = () => {
         />
 
         <BoxRoom>
-          {rooms.map((x) => {
+          {rooms.map((room) => {
             return (
-              <div key={x._id}>
-                {x.users
+              <div key={room._id}>
+                {room.users
                   .filter((user) => user._id !== auth._id)
                   .map((dataUser) => (
                     <BoxMessage
-                      className={x._id === params.id ? "active" : ""}
-                      key={x._id}
+                      className={room._id === params.id ? "active" : ""}
+                      key={room._id}
                       onClick={() => {
-                        findMessage(x._id, dataUser._id);
+                        findMessage(room._id, dataUser._id);
                       }}
                     >
-                      <Badge count={seen(x._id)} size="small">
+                      <Badge
+                        count={unSeen(room._id, dataUser._id)}
+                        size="small"
+                      >
                         <AvatarA
                           shape="square"
-                          size={40}
+                          size={50}
                           src={dataUser.avatar}
                           icon={<UserOutlined />}
                         />
@@ -137,11 +142,11 @@ const Messages = () => {
                       <Rooms>
                         <p className="name">{dataUser.name}</p>
                         <p className="last-message">
-                          {x.who.length === 0
+                          {room.who.length === 0
                             ? "Chưa có tin nhắn"
-                            : x.who === auth.name
-                            ? "You" + ": " + x.lastMessage
-                            : x.who + ": " + x.lastMessage}
+                            : room.who === auth.name
+                            ? "You" + ": " + room.lastMessage
+                            : room.who + ": " + room.lastMessage}
                         </p>
                       </Rooms>
                     </BoxMessage>

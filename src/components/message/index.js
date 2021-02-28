@@ -15,6 +15,7 @@ import {
   Wrapper2,
   Chat,
   Text,
+  CheckSeen,
   Box,
   InputChat,
   Icon,
@@ -68,19 +69,25 @@ const ChatMain = () => {
             <Empty description={false} />
           ) : (
             messages.map((x) => (
-              <Chat friend={auth._id !== x.user._id} key={x._id}>
-                <div>
-                  <Text>{x.user.name}</Text>
-                  <Tooltip placement="left" title={x.createdAt}>
-                    <Box>
+              <div>
+                {params.id === x.room ? (
+                  <Chat friend={auth._id !== x.user._id} key={x._id}>
+                    <div>
                       <Text>
-                        <Emoji text={x.message} />
+                        {x.user.name}
+                        <CheckSeen unSeen={x.isSeen === true} />
                       </Text>
-                    </Box>
-                  </Tooltip>
-                  <Text>{x.isSeen === true ? "đã xem" : ""}</Text>
-                </div>
-              </Chat>
+                      <Tooltip placement="left" title={x.createdAt}>
+                        <Box>
+                          <Text>
+                            <Emoji text={x.message} />
+                          </Text>
+                        </Box>
+                      </Tooltip>
+                    </div>
+                  </Chat>
+                ) : null}
+              </div>
             ))
           )}
         </Wrapper>
