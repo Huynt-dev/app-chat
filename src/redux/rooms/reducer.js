@@ -41,16 +41,16 @@ const roomReducer = createSlice({
       state.toUser = action.payload;
     },
     seen: (state, action) => {
-      // let a = state.message.map((item) => {
-      //   // console.log("asdasdasd", item.toUser);
-      //   if (item.room === action.payload.idRoom) {
-      //     return {
-      //       ...item,
-      //       isSeen: true,
-      //     };
-      //   }
-      //   return item;
-      // });
+      let a = state.message.map((item) => {
+        // console.log("asdasdasd", item.toUser);
+        if (item.room === action.payload.idRoom) {
+          return {
+            ...item,
+            isSeen: true,
+          };
+        }
+        return item;
+      });
 
       let b = state.countNewMessage.map((item) => {
         // console.log("asdasdasd", item.toUser);
@@ -65,7 +65,7 @@ const roomReducer = createSlice({
         }
         return item;
       });
-      return { ...state, countNewMessage: [...b] };
+      return { ...state, countNewMessage: [...b], message: [...a] };
     },
   },
 });

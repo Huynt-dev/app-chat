@@ -8,7 +8,6 @@ import { ModalProfile } from "../../Modal";
 import { MessageOutlined, UserOutlined } from "@ant-design/icons";
 
 const MenuSider = ({ location }) => {
-  const [collapsed, setCollapsed] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const user = useSelector((state) => state.auth.user);
@@ -62,7 +61,7 @@ const MenuSider = ({ location }) => {
   );
 
   return (
-    <SiderA collapsed={collapsed}>
+    <SiderA collapsed={true}>
       <div className="logo" />
 
       <Modal

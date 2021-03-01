@@ -5,15 +5,16 @@ import {
   SmileOutlined,
   LikeFilled,
   SendOutlined,
-  CheckCircleOutlined,
+  EyeOutlined,
 } from "@ant-design/icons";
 const { Header, Content } = Layout;
 
 export const Wrapper = styled(ScrollToBottom)`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
   height: 100%;
+  &&& {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 `;
 
 export const Box = styled.div`
@@ -103,7 +104,7 @@ export const Text = styled.p`
   box-sizing: border-box;
 `;
 
-export const CheckSeen = styled(CheckCircleOutlined)`
+export const CheckSeen = styled(EyeOutlined)`
   padding: 5px;
   margin: 0;
   box-sizing: border-box;

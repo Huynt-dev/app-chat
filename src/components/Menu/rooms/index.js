@@ -26,6 +26,8 @@ const Messages = () => {
   const history = useHistory();
   const params = useParams();
   const auth = useSelector((state) => state.auth.user);
+  const rooms = useSelector((state) => state.rooms.room);
+  const countNewMessage = useSelector((state) => state.rooms.countNewMessage);
   const [isSearching, setIsSearching] = useState(false);
   const [drawer, setShowDrawer] = useState(false);
 
@@ -58,11 +60,8 @@ const Messages = () => {
   const findMessage = (idRoom, toUser) => {
     dispatch(findMessageInRoom({ idRoom, toUser, history }));
     dispatch(sendTo(toUser));
-    dispatch(seen({ idRoom, toUser }));
+    dispatch(seen({ idRoom, toUser, user: auth._id }));
   };
-
-  const rooms = useSelector((state) => state.rooms.room);
-  const countNewMessage = useSelector((state) => state.rooms.countNewMessage);
 
   const unSeen = (roomId, userId) => {
     return countNewMessage
@@ -143,7 +142,7 @@ const Messages = () => {
                         <p className="name">{dataUser.name}</p>
                         <p className="last-message">
                           {room.who.length === 0
-                            ? "Chưa có tin nhắn"
+                            ? "No message yet"
                             : room.who === auth.name
                             ? "You" + ": " + room.lastMessage
                             : room.who + ": " + room.lastMessage}
