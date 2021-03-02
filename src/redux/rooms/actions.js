@@ -4,7 +4,6 @@ import { setRoom, setMessage } from "./reducer";
 export const getRooms = () => async (dispatch) => {
   try {
     const res = await callApi.get("/room");
-    console.log(res.countNewMessage);
     dispatch(setRoom(res));
   } catch (e) {
     console.log(e);
@@ -30,7 +29,6 @@ export const findMessageInRoom = ({ idRoom, toUser, history }) => async (
 ) => {
   try {
     const res = await callApi.get(`/room/${idRoom}/${toUser}`);
-    console.log(res);
     await history.push(`/room/${idRoom}/${toUser}`);
     await dispatch(setMessage(res));
   } catch (error) {}
@@ -40,7 +38,6 @@ export const searchRoom = (textLower) => async (dispatch) => {
   try {
     const res = await callApi.get(`/search/room?r=${textLower}`);
     await dispatch(setRoom(res));
-    // console.log(res.room);
   } catch (e) {
     console.log(e);
   }

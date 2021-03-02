@@ -9,7 +9,6 @@ import { socket } from "configs/socket";
 import useDebounce from "helpers/useDebounce";
 
 import {
-  HeaderPage,
   Contents,
   Wrapper,
   Wrapper2,

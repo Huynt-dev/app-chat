@@ -15,7 +15,6 @@ export const login = ({ email, password, history }) => async (dispatch) => {
     history.push("/");
   } catch (e) {
     message.error("Email or Password is invalid");
-    console.log(e);
   }
 };
 
@@ -40,7 +39,7 @@ export const registerA = ({
     message.success("Register success");
     history.push("/login");
   } catch (error) {
-    console.log("action", error);
+    message.success(error);
   }
 };
 
@@ -50,22 +49,26 @@ export const changeInfo = (data) => async (dispatch) => {
       data,
     });
     dispatch(updateUser(res));
-    // console.log(res);
+
     message.success("Change success");
-    // history.push("/");
   } catch (error) {
-    console.log("action", error);
+    message.success(error);
   }
 };
 
 export const changePass = (data) => async (dispatch) => {
   try {
-    const res = await callApi.post(`/profile/p/`, {
+    await callApi.post(`/profile/p/`, {
       data,
     });
-    // dispatch(updateUser(res));
+    dispatch(
+      setLoginData({
+        token: null,
+        user: {},
+      })
+    );
     message.success("Change Password success");
   } catch (error) {
-    console.log("action", error);
+    message.error(error);
   }
 };

@@ -1,6 +1,5 @@
 import callApi from "../../helpers/axios";
 import { setUsers } from "./reducer";
-import { message } from "antd";
 
 export const getUsers = () => async (dispatch) => {
   try {

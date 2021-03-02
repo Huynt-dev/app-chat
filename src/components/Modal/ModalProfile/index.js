@@ -3,7 +3,6 @@ import { Form, Input, Button } from "antd";
 import { InputMail, ButtonApplyPass } from "./style";
 import { useDispatch } from "react-redux";
 import { changeInfo, changePass } from "redux/auth/actions";
-import { setLoginData } from "redux/auth/reducer";
 
 const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
   const [changePassword, setChangePassword] = useState(false);
@@ -20,12 +19,6 @@ const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
   const submitPassword = (values) => {
     console.log("submitPassword:", values);
     dispatch(changePass(values));
-    dispatch(
-      setLoginData({
-        token: null,
-        user: {},
-      })
-    );
   };
 
   const initialValues = {
