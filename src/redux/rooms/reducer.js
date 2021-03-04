@@ -4,7 +4,7 @@ const initialState = {
   room: [],
   countNewMessage: [],
   message: [],
-  toUser: "",
+  toUser: {},
 };
 
 const roomReducer = createSlice({
@@ -37,23 +37,14 @@ const roomReducer = createSlice({
 
       return { ...state, room: [...a] };
     },
-    sendTo: (state, action) => {
-      state.toUser = action.payload;
-    },
-    seen: (state, action) => {
-      let a = state.message.map((item) => {
-        // console.log("asdasdasd", item.toUser);
-        if (item.room === action.payload.idRoom) {
-          return {
-            ...item,
-            isSeen: true,
-          };
-        }
-        return item;
-      });
 
+    sendTo: (state, action) => {
+      console.log("action", action.payload.dataUser);
+      state.toUser = action.payload.dataUser;
+    },
+
+    seen: (state, action) => {
       let b = state.countNewMessage.map((item) => {
-        // console.log("asdasdasd", item.toUser);
         if (
           item.room === action.payload.idRoom &&
           item.user === action.payload.toUser
@@ -65,7 +56,7 @@ const roomReducer = createSlice({
         }
         return item;
       });
-      return { ...state, countNewMessage: [...b], message: [...a] };
+      return { ...state, countNewMessage: [...b] };
     },
   },
 });

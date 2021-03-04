@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams, withRouter, NavLink } from "react-router-dom";
-import { Badge, Drawer, Menu } from "antd";
+import { useHistory, useParams, withRouter } from "react-router-dom";
+import { Badge, Popover } from "antd";
 import {
   Col1,
   Row1,
@@ -13,7 +13,7 @@ import {
   SearchRoom2,
   MenuMobile,
 } from "./style";
-import { UserOutlined, MessageOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 import { ChatMain } from "../../index";
 import { getRooms, searchRoom, findMessageInRoom } from "redux/rooms/actions";
 import { sendTo, seen } from "redux/rooms/reducer";
@@ -21,7 +21,6 @@ import useDebounce from "helpers/useDebounce";
 
 const Messages = () => {
   const [searchValue, setSearchValue] = useState("");
-
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useParams();
@@ -29,7 +28,6 @@ const Messages = () => {
   const rooms = useSelector((state) => state.rooms.room);
   const countNewMessage = useSelector((state) => state.rooms.countNewMessage);
   const [isSearching, setIsSearching] = useState(false);
-  const [drawer, setShowDrawer] = useState(false);
 
   const debouncedSearch = useDebounce(searchValue, 1000);
 
@@ -55,12 +53,12 @@ const Messages = () => {
       }
     };
     callAPI();
-  }, [dispatch, debouncedSearch]);
+  }, [dispatch, debouncedSearch, params.id, params.toUser, history]);
 
-  const findMessage = (idRoom, toUser) => {
-    dispatch(findMessageInRoom({ idRoom, toUser, history }));
-    dispatch(sendTo(toUser));
-    dispatch(seen({ idRoom, toUser, user: auth._id }));
+  const findMessage = (idRoom, dataUser) => {
+    dispatch(findMessageInRoom({ idRoom, toUser: dataUser._id, history }));
+    dispatch(sendTo({ dataUser }));
+    dispatch(seen({ idRoom, toUser: dataUser._id, user: auth._id }));
   };
 
   const unSeen = (roomId, userId) => {
@@ -69,41 +67,22 @@ const Messages = () => {
       .reduce((total, x) => (x.isSeen === false ? total + 1 : total), 0);
   };
 
-  const showDrawer = () => {
-    setShowDrawer(true);
-  };
-
-  const onClose = () => {
-    setShowDrawer(false);
-  };
+  const searchR = (
+    <SearchRoom2
+      allowClear
+      className="Search"
+      placeholder="tìm kiếm..."
+      onChange={(e) => setSearchValue(e.target.value)}
+      loading={isSearching}
+    />
+  );
 
   return (
     <Row1>
-      <Col1 xs={4} md={8}>
-        <MenuMobile onClick={showDrawer} />
-
-        <Drawer
-          placement="left"
-          closable={false}
-          onClose={onClose}
-          visible={drawer}
-        >
-          <Menu defaultSelectedKeys={["/"]}>
-            <SearchRoom2
-              allowClear
-              className="Search"
-              placeholder="tìm kiếm..."
-              onChange={(e) => setSearchValue(e.target.value)}
-              loading={isSearching}
-            />
-            <Menu.Item key="/room" icon={<MessageOutlined />}>
-              <NavLink to="/room">Messages</NavLink>
-            </Menu.Item>
-            <Menu.Item key="/users" icon={<UserOutlined />}>
-              <NavLink to="/users">Users</NavLink>
-            </Menu.Item>
-          </Menu>
-        </Drawer>
+      <Col1 xs={4} md={8} lg={6}>
+        <Popover placement="rightTop" content={searchR} trigger="click">
+          <MenuMobile />
+        </Popover>
 
         <SearchRoom
           allowClear
@@ -124,7 +103,7 @@ const Messages = () => {
                       className={room._id === params.id ? "active" : ""}
                       key={room._id}
                       onClick={() => {
-                        findMessage(room._id, dataUser._id);
+                        findMessage(room._id, dataUser);
                       }}
                     >
                       <Badge
@@ -133,7 +112,7 @@ const Messages = () => {
                       >
                         <AvatarA
                           shape="square"
-                          size={50}
+                          size={40}
                           src={dataUser.avatar}
                           icon={<UserOutlined />}
                         />
@@ -144,8 +123,8 @@ const Messages = () => {
                           {room.who.length === 0
                             ? "No message yet"
                             : room.who === auth.name
-                            ? "You" + ": " + room.lastMessage
-                            : room.who + ": " + room.lastMessage}
+                            ? `You: ${room.lastMessage}`
+                            : `${room.who}:  ${room.lastMessage}`}
                         </p>
                       </Rooms>
                     </BoxMessage>

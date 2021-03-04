@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import { Layout, Input } from "antd";
+import { Layout, Input, Avatar } from "antd";
 import ScrollToBottom from "react-scroll-to-bottom";
 import {
   SmileOutlined,
@@ -11,10 +11,18 @@ const { Header, Content } = Layout;
 
 export const Wrapper = styled(ScrollToBottom)`
   height: 100%;
+
   &&& {
     display: flex;
     flex-direction: column-reverse;
   }
+`;
+
+export const Center = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Box = styled.div`
@@ -24,7 +32,7 @@ export const Box = styled.div`
   padding: 5px 10px;
   margin: 5px 0;
   box-sizing: border-box;
-  border-radius: 20px;
+  border-radius: 10px;
   color: ${({ theme }) => theme.fonts.light};
 `;
 
@@ -32,16 +40,20 @@ export const HeaderPage = styled(Header)`
   color: ${({ theme }) => theme.fonts.light};
   background-color: ${({ theme }) => theme.colors.header};
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  padding: 0 10px 0 20px;
+  margin-bottom: 20px;
   h1 {
+    padding-left: 10px;
+    margin: 0;
     color: ${({ theme }) => theme.fonts.light};
   }
-  .ok {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+`;
+
+export const AvatarA = styled(Avatar)`
+  background-color: #c9d4e5;
+  box-shadow: 0 0 0 1px #fff;
+  box-sizing: border-box;
 `;
 
 export const Contents = styled(Content)`
@@ -99,6 +111,15 @@ export const Chat = styled.div`
 `;
 
 export const Text = styled.p`
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  span {
+    margin: 0;
+  }
+`;
+
+export const Text2 = styled.p`
   padding: 5px;
   margin: 0;
   box-sizing: border-box;

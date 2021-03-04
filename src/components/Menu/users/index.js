@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import useDebounce from "helpers/useDebounce";
-import { Input, Button, Badge, Result } from "antd";
+import { Input, Button, Badge, Empty } from "antd";
 import {
+  Center,
   Row1,
   Col1,
   AvatarA,
@@ -56,15 +57,13 @@ const Users = () => {
 
         <Row1>
           {!users.length ? (
-            <Result
-              status="404"
-              title="404"
-              subTitle="Sorry, the page you visited does not exist."
-            />
+            <Center>
+              <Empty description={false} />
+            </Center>
           ) : (
             users.map((x, index) => {
               return (
-                <Col1 key={index} span={12}>
+                <Col1 key={index} xs={24} md={12} lg={8}>
                   <div>
                     <BoxMessage>
                       <BadgeA>

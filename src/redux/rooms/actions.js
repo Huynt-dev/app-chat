@@ -13,9 +13,8 @@ export const getRooms = () => async (dispatch) => {
 export const checkUserInRoom = ({ idUser, history }) => async (dispatch) => {
   try {
     const res = await callApi.get(`/users/${idUser}`);
-    // console.log(res.room);
     if (res.room._id) {
-      const res2 = await callApi.get(`/room/${res.room._id}`);
+      const res2 = await callApi.get(`/room/${res.room._id}/${idUser}`);
       dispatch(setMessage(res2));
       history.push(`/room/${res.room._id}/${idUser}`);
     }

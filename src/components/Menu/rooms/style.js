@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { Avatar, Col, Row, Input } from "antd";
-import { MenuOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 const { Search } = Input;
 export const Row1 = styled(Row)`
   height: 100%;
@@ -12,7 +12,7 @@ export const Col1 = styled(Col)`
   background-color: ${({ theme }) => theme.colors.nav};
 `;
 
-export const MenuMobile = styled(MenuOutlined)`
+export const MenuMobile = styled(SearchOutlined)`
   display: none;
   padding: 10px;
   box-sizing: border-box;

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { FromA } from "./style";
@@ -9,6 +9,15 @@ import { login } from "../../redux/auth/actions";
 const LoginPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
+  useEffect(() => {
+    const run = () => {
+      if (token) {
+        return history.push(`/`);
+      }
+    };
+    run();
+  }, [token, history]);
 
   const handleLogin = (data) => {
     dispatch(login({ email: data.username, password: data.password, history }));
@@ -58,7 +67,9 @@ const LoginPage = () => {
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
 
-        <a className="login-form-forgot">Forgot password</a>
+        <a href="/register" className="login-form-forgot">
+          Forgot password
+        </a>
       </Form.Item>
 
       <Form.Item>

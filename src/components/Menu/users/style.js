@@ -10,6 +10,13 @@ export const Container = styled.div`
   }
 `;
 
+export const Center = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const Row1 = styled(Row)`
   height: 100%;
 `;

@@ -1,19 +1,23 @@
 import React, { useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Col, Tooltip, Empty, Popover } from "antd";
 import { useParams } from "react-router-dom";
-
+import { seen } from "redux/rooms/reducer";
 import Emoji from "react-emoji-render";
 import Picker from "emoji-picker-react";
 import { socket } from "configs/socket";
 import useDebounce from "helpers/useDebounce";
 
 import {
+  Center,
+  HeaderPage,
+  AvatarA,
   Contents,
   Wrapper,
   Wrapper2,
   Chat,
   Text,
+  Text2,
   CheckSeen,
   Box,
   InputChat,
@@ -23,15 +27,18 @@ import {
   Like,
   LikeAndSend,
 } from "./style";
+import { UserOutlined } from "@ant-design/icons";
 
-const ChatMain = () => {
+const ChatMain = (props) => {
+  const getUser = useSelector((state) => state.rooms.toUser);
+  console.log(getUser);
   const params = useParams();
   const [chat, setChat] = useState("");
   const messages = useSelector((state) => state.rooms.message);
   const auth = useSelector((state) => state.auth.user);
-
+  const dispatch = useDispatch();
   const debounceChat = useDebounce(chat, 100);
-  const debounceLike = useDebounce("👍", 1000);
+  const debounceLike = useDebounce("👍", 10000);
   const textInput = useRef(null);
   const inputRef = () => {
     textInput.current.focus();
@@ -42,6 +49,7 @@ const ChatMain = () => {
 
   const messageSend = (e) => {
     e.preventDefault();
+    console.log(e.value);
     socket.emit("sendMessage", {
       room: params.id,
       user: auth._id,
@@ -49,6 +57,9 @@ const ChatMain = () => {
       toUser: params.toUser,
     });
     setChat("");
+    dispatch(
+      seen({ idRoom: params.id, toUser: params.toUser, user: auth._id })
+    );
   };
 
   const messageLike = () => {
@@ -58,14 +69,29 @@ const ChatMain = () => {
       message: debounceLike,
       toUser: params.toUser,
     });
+    dispatch(
+      seen({ idRoom: params.id, toUser: params.toUser, user: auth._id })
+    );
   };
 
   return (
-    <Col xs={20} md={16}>
+    <Col xs={20} md={16} lg={18}>
       <Contents>
+        <HeaderPage>
+          {/* <AvatarA
+            shape="square"
+            size={40}
+            src={getUser}
+            icon={<UserOutlined />}
+          />
+          <h1>{getUser}</h1> */}
+        </HeaderPage>
+
         <Wrapper mode="bottom">
           {!messages.length ? (
-            <Empty description={false} />
+            <Center>
+              <Empty description={false} />
+            </Center>
           ) : (
             messages.map((x) => (
               <div>
@@ -73,14 +99,14 @@ const ChatMain = () => {
                   <Chat friend={auth._id !== x.user._id} key={x._id}>
                     <div>
                       <Text>
-                        {x.user.name}
+                        <span>{x.user.name}</span>
                         <CheckSeen unSeen={x.isSeen === true} />
                       </Text>
                       <Tooltip placement="left" title={x.createdAt}>
                         <Box>
-                          <Text>
+                          <Text2>
                             <Emoji text={x.message} />
-                          </Text>
+                          </Text2>
                         </Box>
                       </Tooltip>
                     </div>
