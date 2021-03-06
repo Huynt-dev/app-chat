@@ -4,7 +4,6 @@ const initialState = {
   room: [],
   countNewMessage: [],
   message: [],
-  toUser: {},
 };
 
 const roomReducer = createSlice({
@@ -36,11 +35,6 @@ const roomReducer = createSlice({
       });
 
       return { ...state, room: [...a] };
-    },
-
-    sendTo: (state, action) => {
-      console.log("action", action.payload.dataUser);
-      state.toUser = action.payload.dataUser;
     },
 
     seen: (state, action) => {

@@ -1,12 +1,12 @@
 import { io } from "socket.io-client";
 import { setNewMessage, setLastMessage } from "redux/rooms/reducer";
 import { notification } from "antd";
-
+import config from "../configs";
 const localData = localStorage.getItem("persist:root");
 const data = JSON.parse(localData) || {};
 const { token } = JSON.parse(data.auth || null) || {};
 
-var socket = io("localhost:9999", {
+var socket = io(config.REACT_APP_URL, {
   query: {
     token: token,
   },

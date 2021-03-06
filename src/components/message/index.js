@@ -26,16 +26,16 @@ import {
   Send,
   Like,
   LikeAndSend,
+  BadgeA,
 } from "./style";
 import { UserOutlined } from "@ant-design/icons";
 
-const ChatMain = (props) => {
-  const getUser = useSelector((state) => state.rooms.toUser);
-  console.log(getUser);
+const ChatMain = () => {
+  const auth = useSelector((state) => state.auth.user);
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const messages = useSelector((state) => state.rooms.message);
   const params = useParams();
   const [chat, setChat] = useState("");
-  const messages = useSelector((state) => state.rooms.message);
-  const auth = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const debounceChat = useDebounce(chat, 100);
   const debounceLike = useDebounce("👍", 10000);
@@ -76,17 +76,19 @@ const ChatMain = (props) => {
 
   return (
     <Col xs={20} md={16} lg={18}>
-      <Contents>
-        <HeaderPage>
-          {/* <AvatarA
+      <HeaderPage>
+        <BadgeA status={userInfo.isOnline ? "success" : "default"}>
+          <AvatarA
             shape="square"
             size={40}
-            src={getUser}
+            src={userInfo.avatar}
             icon={<UserOutlined />}
           />
-          <h1>{getUser}</h1> */}
-        </HeaderPage>
+        </BadgeA>
 
+        <h1>{userInfo.name}</h1>
+      </HeaderPage>
+      <Contents>
         <Wrapper mode="bottom">
           {!messages.length ? (
             <Center>
@@ -94,13 +96,13 @@ const ChatMain = (props) => {
             </Center>
           ) : (
             messages.map((x) => (
-              <div>
+              <div key={x._id}>
                 {params.id === x.room ? (
-                  <Chat friend={auth._id !== x.user._id} key={x._id}>
+                  <Chat friend={auth._id !== x.user._id}>
                     <div>
                       <Text>
                         <span>{x.user.name}</span>
-                        <CheckSeen unSeen={x.isSeen === true} />
+                        <CheckSeen unseen={x.isSeen === true} />
                       </Text>
                       <Tooltip placement="left" title={x.createdAt}>
                         <Box>

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { Form, Input, Button } from "antd";
-import { InputMail, ButtonApplyPass } from "./style";
+import { Form, Input, Button, Upload } from "antd";
+import { InputMail, ButtonApplyPass, AvatarA } from "./style";
 import { useDispatch } from "react-redux";
 import { changeInfo, changePass } from "redux/auth/actions";
+import { UserOutlined } from "@ant-design/icons";
 
 const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
   const [changePassword, setChangePassword] = useState(false);
+
+  const [avatarUrl, setAvatarUrl] = useState(avatar);
+
   const dispatch = useDispatch();
 
   const showInput = () => {
@@ -36,22 +40,30 @@ const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
         initialValues={initialValues}
         scrollToFirstError
       >
+        <Upload
+          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+          listType="picture-card"
+          maxCount={2}
+        >
+          <AvatarA
+            shape="square"
+            src={avatarUrl}
+            size={100}
+            icon={<UserOutlined />}
+          />
+        </Upload>
         <Form.Item name="firstName" label="First Name">
           <Input />
         </Form.Item>
-
         <Form.Item name="lastName" label="Last Name">
           <Input />
         </Form.Item>
-
         <Form.Item label="Name User">
           <Input defaultValue={userName} disabled />
         </Form.Item>
-
         <Form.Item label="Email">
           <InputMail defaultValue={email} disabled />
         </Form.Item>
-
         <Form.Item>
           <ButtonApplyPass htmlType="submit" type="primary">
             Apply Change

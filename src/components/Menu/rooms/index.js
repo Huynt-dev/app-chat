@@ -16,6 +16,8 @@ import {
 import { UserOutlined } from "@ant-design/icons";
 import { ChatMain } from "../../index";
 import { getRooms, searchRoom, findMessageInRoom } from "redux/rooms/actions";
+
+import { showUser } from "redux/users/action";
 import { sendTo, seen } from "redux/rooms/reducer";
 import useDebounce from "helpers/useDebounce";
 
@@ -41,7 +43,7 @@ const Messages = () => {
             history,
           })
         );
-        dispatch(sendTo(params.toUser));
+        dispatch(showUser({ userId: params.toUser }));
       }
 
       if (debouncedSearch) {
@@ -57,7 +59,6 @@ const Messages = () => {
 
   const findMessage = (idRoom, dataUser) => {
     dispatch(findMessageInRoom({ idRoom, toUser: dataUser._id, history }));
-    dispatch(sendTo({ dataUser }));
     dispatch(seen({ idRoom, toUser: dataUser._id, user: auth._id }));
   };
 

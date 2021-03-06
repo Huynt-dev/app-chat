@@ -1,5 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
-import { Layout, Input, Avatar } from "antd";
+import { Layout, Input, Avatar, Badge } from "antd";
 import ScrollToBottom from "react-scroll-to-bottom";
 import {
   SmileOutlined,
@@ -50,6 +50,10 @@ export const HeaderPage = styled(Header)`
   }
 `;
 
+export const BadgeA = styled(Badge)`
+  display: flex;
+`;
+
 export const AvatarA = styled(Avatar)`
   background-color: #c9d4e5;
   box-shadow: 0 0 0 1px #fff;
@@ -61,7 +65,7 @@ export const Contents = styled(Content)`
   flex-direction: column;
   justify-content: flex-end;
   box-sizing: border-box;
-  height: calc(100vh - 102px);
+  height: calc(100vh - 186px);
   overflow-y: auto;
 
   ::-webkit-scrollbar {
@@ -129,8 +133,8 @@ export const CheckSeen = styled(EyeOutlined)`
   padding: 5px;
   margin: 0;
   box-sizing: border-box;
-  ${({ unSeen }) =>
-    unSeen &&
+  ${({ unseen }) =>
+    unseen &&
     css`
       color: green;
     `}

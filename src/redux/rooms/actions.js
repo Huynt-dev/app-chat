@@ -5,9 +5,7 @@ export const getRooms = () => async (dispatch) => {
   try {
     const res = await callApi.get("/room");
     dispatch(setRoom(res));
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };
 
 export const checkUserInRoom = ({ idUser, history }) => async (dispatch) => {
@@ -18,9 +16,7 @@ export const checkUserInRoom = ({ idUser, history }) => async (dispatch) => {
       dispatch(setMessage(res2));
       history.push(`/room/${res.room._id}/${idUser}`);
     }
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };
 
 export const findMessageInRoom = ({ idRoom, toUser, history }) => async (
@@ -37,7 +33,5 @@ export const searchRoom = (textLower) => async (dispatch) => {
   try {
     const res = await callApi.get(`/search/room?r=${textLower}`);
     await dispatch(setRoom(res));
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };

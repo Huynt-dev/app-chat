@@ -26,7 +26,7 @@ export const registerA = ({
   password,
   gender,
   history,
-}) => async (dispatch) => {
+}) => async () => {
   try {
     await callApi.post("/auth/register", {
       firstName,
