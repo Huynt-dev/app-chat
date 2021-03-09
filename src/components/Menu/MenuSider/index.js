@@ -2,8 +2,19 @@ import React, { useState } from "react";
 import { useHistory, withRouter, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoginData } from "redux/auth/reducer";
-import { SiderA, MenuA, AvatarA, ContentProfile, Wrapper } from "./style";
-import { Menu, Popover, List, Divider, Modal, Button } from "antd";
+import {
+  SiderMain,
+  Menu,
+  Avatar,
+  ContentProfile,
+  Wrapper,
+  Popover,
+  List,
+  Divider,
+  Modal,
+  Button,
+  By,
+} from "./style";
 import { ModalProfile } from "../../Modal";
 import { MessageOutlined, UserOutlined } from "@ant-design/icons";
 
@@ -61,9 +72,7 @@ const MenuSider = ({ location }) => {
   );
 
   return (
-    <SiderA collapsed={true}>
-      <div className="logo" />
-
+    <SiderMain collapsed={true}>
       <Modal
         title="Profile"
         visible={isModalVisible}
@@ -93,7 +102,7 @@ const MenuSider = ({ location }) => {
           content={content}
           onVisibleChange={handleVisibleChange}
         >
-          <AvatarA
+          <Avatar
             shape="square"
             size={50}
             src={user.avatar}
@@ -102,7 +111,7 @@ const MenuSider = ({ location }) => {
         </Popover>
       </Wrapper>
 
-      <MenuA
+      <Menu
         defaultSelectedKeys={["/"]}
         selectedKeys={[location.pathname]}
         mode="inline"
@@ -113,8 +122,11 @@ const MenuSider = ({ location }) => {
         <Menu.Item key="/users" icon={<UserOutlined />}>
           <NavLink to="/users">Users</NavLink>
         </Menu.Item>
-      </MenuA>
-    </SiderA>
+      </Menu>
+      <By>
+        <p>HUY.NT</p>
+      </By>
+    </SiderMain>
   );
 };
 

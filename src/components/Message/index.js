@@ -92,7 +92,11 @@ const ChatMain = () => {
         <Wrapper mode="bottom">
           {!messages.length ? (
             <Center>
-              <Empty description={false} />
+              <Empty
+                description={
+                  <span>Messages will be deleted after 24 hours</span>
+                }
+              />
             </Center>
           ) : (
             messages.map((x) => (

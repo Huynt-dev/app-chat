@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { Form, Input, Tooltip, Select, Checkbox, Button } from "antd";
 import { FormA } from "./style";
 import { registerA } from "redux/auth/actions";
-import { QuestionCircleOutlined } from "@ant-design/icons";
+import { QuestionCircleOutlined, LoadingOutlined } from "@ant-design/icons";
 const { Option } = Select;
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   let history = useHistory();
 
@@ -19,11 +20,9 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
 
-  const error = useSelector((state) => state.auth.error);
-  console.log(error);
-
-  const onFinish = () => {
-    dispatch(
+  const onFinish = async () => {
+    setLoading(true);
+    await dispatch(
       registerA({
         firstName,
         lastName,
@@ -34,6 +33,7 @@ const Register = () => {
         history,
       })
     );
+    setLoading(false);
   };
 
   const prefixSelector = (
@@ -57,6 +57,7 @@ const Register = () => {
       }}
       scrollToFirstError
     >
+      <h1>Register</h1>
       <Form.Item
         name="firstName"
         label="First Name"
@@ -210,11 +211,8 @@ const Register = () => {
         </Checkbox>
       </Form.Item>
       <Form.Item>
-        <p>{error}</p>
-      </Form.Item>
-      <Form.Item>
         <Button type="primary" htmlType="submit">
-          Register
+          {loading ? <LoadingOutlined /> : "Register"}
         </Button>
       </Form.Item>
       <Form.Item>

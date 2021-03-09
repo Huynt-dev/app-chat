@@ -29,6 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "react-scripts build && scp -r ./build/* root@149.28.128.190:/var/www/chat.huynt.xyz",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

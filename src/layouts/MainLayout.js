@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { LayoutA } from "./style";
-import { Layout } from "antd";
+import { Layout } from "./style";
+import { Layout as LayoutA } from "antd";
 import { MenuSider } from "../components";
 import { useSelector } from "react-redux";
 import { socket } from "configs/socket";
@@ -11,10 +11,10 @@ const MainLayout = ({ children }) => {
     socket.emit("auth", token);
   }, [token]);
   return (
-    <LayoutA style={{ minHeight: "100vh" }}>
+    <Layout style={{ minHeight: "100vh" }}>
       <MenuSider />
-      <Layout>{children}</Layout>
-    </LayoutA>
+      <LayoutA>{children}</LayoutA>
+    </Layout>
   );
 };
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Layout } from "antd";
+import { Layout as LayoutA } from "antd";
 
-export const LayoutA = styled(Layout)`
+export const Layout = styled(LayoutA)`
   background-color: ${({ theme }) => theme.colors.nav};
 `;

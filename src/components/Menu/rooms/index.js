@@ -18,7 +18,7 @@ import { ChatMain } from "../../index";
 import { getRooms, searchRoom, findMessageInRoom } from "redux/rooms/actions";
 
 import { showUser } from "redux/users/action";
-import { sendTo, seen } from "redux/rooms/reducer";
+import { seen } from "redux/rooms/reducer";
 import useDebounce from "helpers/useDebounce";
 
 const Messages = () => {

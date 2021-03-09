@@ -33,6 +33,7 @@ export const SearchRoom = styled(Search)`
 `;
 
 export const SearchRoom2 = styled(Search)`
+  width: 200px;
   display: none;
   padding: 10px;
   box-sizing: border-box;

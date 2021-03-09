@@ -39,7 +39,7 @@ export const registerA = ({
     message.success("Register success");
     history.push("/login");
   } catch (error) {
-    message.success(error);
+    message.error(error);
   }
 };
 

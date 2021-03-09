@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Button, Checkbox } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { UserOutlined, LockOutlined, LoadingOutlined } from "@ant-design/icons";
 import { FromA } from "./style";
 import { login } from "../../redux/auth/actions";
 
 const LoginPage = () => {
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
@@ -19,8 +20,12 @@ const LoginPage = () => {
     run();
   }, [token, history]);
 
-  const handleLogin = (data) => {
-    dispatch(login({ email: data.username, password: data.password, history }));
+  const handleLogin = async (data) => {
+    setLoading(true);
+    await dispatch(
+      login({ email: data.username, password: data.password, history })
+    );
+    setLoading(false);
   };
 
   return (
@@ -32,6 +37,7 @@ const LoginPage = () => {
       }}
       onFinish={handleLogin}
     >
+      <h1>Login</h1>
       <Form.Item
         name="username"
         rules={[
@@ -74,7 +80,7 @@ const LoginPage = () => {
 
       <Form.Item>
         <Button type="primary" htmlType="submit" className="login-form-button">
-          Log in
+          {loading ? <LoadingOutlined /> : "Log in"}
         </Button>
         <div>
           Or <a href="/register">register now!</a>
