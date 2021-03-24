@@ -10,12 +10,11 @@ import {
 const { Header, Content } = Layout;
 
 export const Wrapper = styled(ScrollToBottom)`
+  display: flex;
+  flex-direction: column-reverse;
   height: 100%;
-
-  &&& {
-    display: flex;
-    flex-direction: column-reverse;
-  }
+  overflow-y: auto;
+  width: 100%;
 `;
 
 export const Center = styled.div`

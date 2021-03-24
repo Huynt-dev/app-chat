@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Upload } from "antd";
+import { Form, Input, Button } from "antd";
 import { InputMail, ButtonApplyPass, AvatarA } from "./style";
 import { useDispatch } from "react-redux";
 import { changeInfo, changePass } from "redux/auth/actions";
@@ -7,8 +7,6 @@ import { UserOutlined } from "@ant-design/icons";
 
 const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
   const [changePassword, setChangePassword] = useState(false);
-
-  const [avatarUrl, setAvatarUrl] = useState(avatar);
 
   const dispatch = useDispatch();
 
@@ -40,18 +38,15 @@ const ModalProfile = ({ avatar, firstName, lastName, userName, email }) => {
         initialValues={initialValues}
         scrollToFirstError
       >
-        <Upload
-          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-          listType="picture-card"
-          maxCount={2}
-        >
+        <Form.Item>
           <AvatarA
             shape="square"
-            src={avatarUrl}
+            src={avatar}
             size={100}
             icon={<UserOutlined />}
           />
-        </Upload>
+        </Form.Item>
+
         <Form.Item name="firstName" label="First Name">
           <Input />
         </Form.Item>

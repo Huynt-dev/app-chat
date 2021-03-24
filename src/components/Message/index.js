@@ -49,7 +49,6 @@ const ChatMain = () => {
 
   const messageSend = (e) => {
     e.preventDefault();
-    console.log(e.value);
     socket.emit("sendMessage", {
       room: params.id,
       user: auth._id,
@@ -106,7 +105,7 @@ const ChatMain = () => {
                     <div>
                       <Text>
                         <span>{x.user.name}</span>
-                        <CheckSeen unseen={x.isSeen === true} />
+                        <CheckSeen unseen={x.isSeen.toString()} />
                       </Text>
                       <Tooltip placement="left" title={x.createdAt}>
                         <Box>
